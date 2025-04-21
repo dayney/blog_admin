@@ -1,0 +1,74 @@
+{
+  "rules": [
+    {
+      "name": "Vue 组件命名",
+      "pattern": "src/components/**/*.vue",
+      "message": "组件名应使用 PascalCase 命名方式"
+    },
+    {
+      "name": "CSS 类名命名",
+      "pattern": "src/**/*.{vue,css}",
+      "message": "使用 kebab-case 命名 CSS 类名"
+    },
+    {
+      "name": "Tailwind 类命名",
+      "pattern": "src/**/*.vue",
+      "message": "Tailwind 类名应按照布局、尺寸、间距、颜色的顺序排列"
+    },
+    {
+      "name": "Element Plus 组件前缀",
+      "pattern": "src/**/*.vue",
+      "message": "Element Plus 组件应使用 el- 前缀"
+    },
+    {
+      "name": "Vue 组件结构",
+      "pattern": "src/**/*.vue",
+      "message": "组件结构应遵循 <template>、<script> 和 <style> 的顺序"
+    },
+    {
+      "name": "导入顺序",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "导入顺序应为：Vue 核心库、第三方库、自定义组件、工具函数"
+    },
+    {
+      "name": "使用 setup 语法",
+      "pattern": "src/**/*.vue",
+      "message": "优先使用 <script setup> 语法"
+    },
+    {
+      "name": "Props 定义",
+      "pattern": "src/components/**/*.vue",
+      "message": "Props 应明确定义类型和默认值"
+    },
+    {
+      "name": "避免内联样式",
+      "pattern": "src/**/*.vue",
+      "message": "避免使用内联样式，优先使用 Tailwind 类或组件样式"
+    },
+    {
+      "name": "响应式数据",
+      "pattern": "src/**/*.vue",
+      "message": "使用 ref 和 reactive 定义响应式数据"
+    },
+    {
+      "name": "路由定义",
+      "pattern": "src/router/**/*.js",
+      "message": "路由应定义 name 和 component"
+    },
+    {
+      "name": "Tailwind 配置",
+      "pattern": "tailwind.config.js",
+      "message": "确保 content 字段包含所有 Vue 文件路径"
+    },
+    {
+      "name": "Element Plus 图标使用",
+      "pattern": "src/**/*.vue",
+      "message": "从 @element-plus/icons-vue 导入图标并使用 el-icon 组件"
+    }
+  ],
+  "ignores": [
+    "node_modules/**",
+    "dist/**",
+    "public/**"
+  ]
+} 
