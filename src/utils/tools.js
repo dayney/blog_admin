@@ -1,20 +1,16 @@
-/**
- * 环境配置工具
- */
-
 // 当前环境
 export const isDev = import.meta.env.MODE === 'development';
 export const isTest = import.meta.env.MODE === 'test';
 export const isProd = import.meta.env.MODE === 'production';
-
-// 环境名称
-export const envName = import.meta.env.VITE_APP_TITLE;
 
 // API基础路径
 export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 图片基础路径
 export const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+
+// 项目名称
+export const envName = import.meta.env.VITE_APP_TITLE;
 
 /**
  * 获取图片完整路径
@@ -34,12 +30,18 @@ export function getImageUrl(path) {
   return `${imageBaseUrl}${imgPath}`;
 }
 
-export default {
-  isDev,
-  isTest,
-  isProd,
-  envName,
-  apiBaseUrl,
-  imageBaseUrl,
-  getImageUrl
-};
+/**
+ * 获取当前环境信息
+ * @returns {Object} 环境信息
+ */
+export function getEnvInfo() {
+  return {
+    mode: import.meta.env.MODE,
+    isProd,
+    isDev,
+    isTest,
+    apiBaseUrl,
+    imageBaseUrl,
+    title: envName
+  };
+}

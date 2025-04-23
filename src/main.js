@@ -13,7 +13,7 @@ import router from './router';
 import './assets/main.css';
 
 // 引入环境配置
-import { envName } from './utils/env';
+import { envName } from './utils/tools.js';
 
 // 根据环境设置页面标题
 document.title = envName;
