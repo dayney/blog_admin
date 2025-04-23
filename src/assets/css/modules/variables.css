@@ -1,0 +1,35 @@
+/**
+ * CSS变量模块
+ * 定义全局使用的颜色、尺寸和其他样式变量
+ */
+
+:root {
+    /* 颜色 */
+    --primary-color: #0071e3;
+    --secondary-color: #34c759;
+    --danger-color: #ff3b30;
+    --warning-color: #ff9500;
+    --info-color: #5ac8fa;
+    --dark-color: #1c1c1e;
+    --light-color: #f5f5f7;
+    --gray-color: #86868b;
+    --border-color: #d2d2d7;
+    
+    /* 背景 */
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --sidebar-bg: rgba(245, 245, 247, 0.9);
+    --header-bg: rgba(255, 255, 255, 0.85);
+    
+    /* 其他 */
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+    
+    /* 登录页面主题 */
+    --login-bg-color: #1890ff;
+    --login-gradient-start: #1890ff;
+    --login-gradient-end: #096dd9;
+    --bubble-color-1: rgba(255, 255, 255, 0.1);
+    --bubble-color-2: rgba(255, 255, 255, 0.15);
+    --bubble-color-3: rgba(255, 255, 255, 0.2);
+} 

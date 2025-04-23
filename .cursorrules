@@ -64,6 +64,56 @@
       "name": "Element Plus 图标使用",
       "pattern": "src/**/*.vue",
       "message": "从 @element-plus/icons-vue 导入图标并使用 el-icon 组件"
+    },
+    {
+      "name": "模块特定组件位置",
+      "pattern": "src/views/**/*.vue",
+      "message": "模块特定的组件应放在模块目录下的components文件夹中，不要放在全局components目录"
+    },
+    {
+      "name": "逻辑复用方式",
+      "pattern": "src/views/**/*.{js,vue}",
+      "message": "模块内复用的逻辑应抽离到模块目录下的hooks文件夹中，供当前模块内多个组件使用"
+    },
+    {
+      "name": "iOS风格设计规范",
+      "pattern": "src/**/*.{vue,css}",
+      "message": "设计应遵循iOS风格：简洁、轻量、大圆角设计、适当的磨砂效果"
+    },
+    {
+      "name": "颜色方案",
+      "pattern": "src/**/*.{vue,css}",
+      "message": "使用iOS风格的配色方案，浅色背景，适当使用亮色点缀"
+    },
+    {
+      "name": "卡片设计",
+      "pattern": "src/views/**/*.vue",
+      "message": "使用卡片式布局展示内容，确保足够的留白和清晰的信息分层"
+    },
+    {
+      "name": "仪表盘设计",
+      "pattern": "src/views/Dashboard.vue",
+      "message": "仪表盘应包含数据概览、趋势图表、最近活动和内容列表等模块"
+    },
+    {
+      "name": "设置页面设计",
+      "pattern": "src/views/settings/**/*.vue",
+      "message": "设置页面应使用分组式表单，每组配置有明确的标题和说明文字"
+    },
+    {
+      "name": "系统工具页面设计",
+      "pattern": "src/views/system/**/*.vue",
+      "message": "系统工具页面应具有一致的标题栏、操作区和内容展示区"
+    },
+    {
+      "name": "交互反馈",
+      "pattern": "src/**/*.vue",
+      "message": "用户操作应有明确的反馈，如提交表单后显示成功提示，操作按钮有hover效果"
+    },
+    {
+      "name": "图标使用",
+      "pattern": "src/**/*.vue",
+      "message": "菜单项和功能按钮应配有适当的图标，选择风格统一的图标库"
     }
   ],
   "ignores": [

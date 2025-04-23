@@ -22,66 +22,72 @@ import HelloWorld from './components/HelloWorld.vue';
   <RouterView />
 </template>
 
-<style scoped>
-header {
+<style>
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  font-size: 14px;
   line-height: 1.5;
-  max-height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+/* Element Plus 组件样式优化 */
+.el-button--primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.el-button--primary:hover, 
+.el-button--primary:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.el-menu {
+  border-right: none;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.el-table th {
+  background-color: #fafafa;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.el-tag {
+  border-radius: 4px;
 }
 
-nav a:first-of-type {
-  border: 0;
+.el-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.el-card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
 
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>

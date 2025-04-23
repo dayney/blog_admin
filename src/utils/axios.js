@@ -145,7 +145,7 @@ service.interceptors.response.use(
 
       // 错误提示
       ElMessage({
-        message: errorMessage,
+        message: '拦截出来的错误' + errorMessage,
         type: 'error',
         duration: 5 * 1000
       });
@@ -163,8 +163,6 @@ service.interceptors.response.use(
           }, 1500);
         }
       }
-
-      return Promise.reject(new Error(errorMessage));
     } else {
       return res.data;
     }
@@ -236,7 +234,7 @@ service.interceptors.response.use(
 
     // 显示错误消息
     ElMessage({
-      message: errorMessage,
+      message: '服务器异常：' + errorMessage,
       type: 'error',
       duration: 5 * 1000
     });

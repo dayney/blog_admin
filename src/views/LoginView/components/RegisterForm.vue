@@ -1,11 +1,11 @@
 <template>
   <div class="auth-form-wrapper">
     <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" @submit.prevent="handleRegister">
-      <div class="form-item">
+      <el-form-item prop="username">
         <el-input v-model="registerForm.username" placeholder="请设置用户名" :prefix-icon="User" class="custom-input" />
-      </div>
+      </el-form-item>
 
-      <div class="form-item">
+      <el-form-item prop="password">
         <el-input
           v-model="registerForm.password"
           type="password"
@@ -14,9 +14,9 @@
           show-password
           class="custom-input"
         />
-      </div>
+      </el-form-item>
 
-      <div class="form-item">
+      <el-form-item prop="confirmPassword">
         <el-input
           v-model="registerForm.confirmPassword"
           type="password"
@@ -25,43 +25,38 @@
           show-password
           class="custom-input"
         />
-      </div>
+      </el-form-item>
 
-      <div class="form-item">
+      <el-form-item prop="email">
         <el-input
           v-model="registerForm.email"
-          type="password"
+          type="email"
           placeholder="请输入邮箱地址"
           :prefix-icon="Message"
           class="custom-input"
         />
-      </div>
+      </el-form-item>
 
-      <div class="form-item">
+      <el-form-item prop="phone">
         <el-input
           v-model="registerForm.phone"
-          type="password"
+          type="text"
           placeholder="请输入手机号"
           :prefix-icon="Phone"
           class="custom-input"
         />
-      </div>
+      </el-form-item>
 
-      <div class="form-item">
-        <div class="captcha-wrapper">
-          <el-input v-model="registerForm.captcha" placeholder="请输入验证码" class="custom-input captcha-input" />
-          <div class="captcha-img" @click="refreshCaptcha">
-            <img :src="getImageUrl(captchaImageUrl)" alt="验证码" />
-          </div>
-        </div>
-      </div>
+      <el-form-item prop="captcha">
+        <captcha-input v-model="registerForm.captcha" :captcha-url="captchaImageUrl" @refresh="handleRefreshCaptcha" />
+      </el-form-item>
 
-      <div class="agree-terms">
+      <el-form-item prop="agreeTerms">
         <el-checkbox v-model="registerForm.agreeTerms">
           我已阅读并同意 <a href="javascript:;" class="term-link">用户协议</a> 和
           <a href="javascript:;" class="term-link">隐私政策</a>
         </el-checkbox>
-      </div>
+      </el-form-item>
 
       <el-button type="primary" native-type="submit" class="btn-submit" :loading="loading">注册</el-button>
     </el-form>
@@ -74,7 +69,9 @@ import { User, Lock, Phone, Message } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { getImageUrl } from '@/utils/tools';
-import { getVerificationCode } from '@/api/login';
+import { userRegister } from '@/api/user';
+import CaptchaInput from './CaptchaInput.vue';
+import useCaptcha from '../hooks/useCaptcha';
 
 const router = useRouter();
 
@@ -96,11 +93,12 @@ const registerForm = reactive({
   agreeTerms: false
 });
 
-let captchaImageUrl = ref('');
-getVerificationCode().then(res => {
-  const { uuid, image_path } = res;
-  registerForm.uuid = uuid;
-  captchaImageUrl.value = image_path;
+// 使用验证码钩子
+const { captchaImageUrl, uuid, fetchCaptcha, refreshCaptcha } = useCaptcha();
+
+// 初始化获取验证码
+fetchCaptcha().then(({ uuid: captchaUuid }) => {
+  registerForm.uuid = captchaUuid;
 });
 
 // 清空表单数据
@@ -121,10 +119,13 @@ const resetForm = () => {
 
 // 注册表单验证规则
 const registerRules = {
-  username: [{ required: true, message: '请设置用户名', trigger: 'blur' }],
+  username: [
+    { required: true, message: '请设置用户名', trigger: 'blur' },
+    { min: 3, max: 20, message: '用户名长度不能超过20位', trigger: 'blur' }
+  ],
   password: [
     { required: true, message: '请设置密码', trigger: 'blur' },
-    { min: 6, message: '密码长度不能少于6位', trigger: 'blur' }
+    { min: 6, max: 20, message: '密码长度必须在6-20之间', trigger: 'blur' }
   ],
   confirmPassword: [
     { required: true, message: '请再次输入密码', trigger: 'blur' },
@@ -139,7 +140,15 @@ const registerRules = {
       trigger: 'blur'
     }
   ],
-  captcha: [{ required: true, message: '请输入图形验证码', trigger: 'blur' }],
+  email: [
+    { required: false, message: '请输入邮箱地址', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
+  ],
+  phone: [
+    { required: false, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^1\d{11}$/, message: '请输入正确的手机号格式', trigger: 'blur' }
+  ],
+  captcha: [{ required: true, message: '请输入6位图形验证码', trigger: 'blur' }],
   agreeTerms: [
     {
       validator: (rule, value, callback) => {
@@ -155,28 +164,31 @@ const registerRules = {
 };
 
 // 刷新验证码
-const refreshCaptcha = () => {
-  // 实际项目中应该从后端获取新的验证码
-  ElMessage.success('验证码已刷新');
+const handleRefreshCaptcha = async () => {
+  const { uuid: captchaUuid } = await refreshCaptcha();
+  registerForm.uuid = captchaUuid;
 };
 
 // 注册
 const handleRegister = () => {
-  registerFormRef.value.validate(valid => {
+  console.log('点击了注册按钮');
+  registerFormRef.value.validate(async valid => {
     if (valid) {
       loading.value = true;
-      console.log(registerForm, 'registerForm');
-      // setTimeout(() => {
-      //   loading.value = false;
-
-      //   // 注册成功，直接登录并跳转
-      //   localStorage.setItem('isLoggedIn', 'true');
-      //   localStorage.setItem('username', registerForm.username || '新用户');
-      //   localStorage.setItem('loginTime', new Date().toISOString());
-
-      //   // 跳转到首页
-      //   router.push('/');
-      // }, 500);
+      let res = await userRegister(registerForm);
+      console.log('1111');
+      if (res.status) {
+        ElMessage.success('注册成功');
+        console.log('1111');
+        loading.value = false;
+        // router.push('/login');
+      } else {
+        console.log('2222');
+        ElMessage.error(res.errormessage);
+        loading.value = false;
+      }
+      console.log('3333');
+      loading.value = false;
     }
   });
 };
@@ -196,37 +208,7 @@ defineExpose({
   flex: 1;
 }
 
-/* 验证码样式 */
-.captcha-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.captcha-input {
-  flex: 1;
-}
-
-.captcha-img {
-  width: 120px;
-  height: 40px;
-  margin-left: 10px;
-  border-radius: 4px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.captcha-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 /* 协议同意 */
-.agree-terms {
-  margin-bottom: 25px;
-  font-size: 14px;
-}
-
 .term-link {
   color: #409eff;
   text-decoration: none;
@@ -277,13 +259,5 @@ defineExpose({
 
 :deep(.el-checkbox__inner) {
   border-color: #dcdfe6;
-}
-
-:deep(.el-input__wrapper) {
-  box-shadow: 0 0 0 1px #dcdfe6 inset;
-}
-
-:deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 0 0 1px #409eff inset;
 }
 </style>

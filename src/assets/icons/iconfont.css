@@ -1,0 +1,11 @@
+/* 
+ * 该项目使用Font Awesome图标库，不再使用自定义iconfont
+ * Font Awesome已在main.js中引入：@fortawesome/fontawesome-free/css/all.min.css
+ * 
+ * 使用方法:
+ * <i class="fas fa-user"></i>  - 实心图标
+ * <i class="far fa-user"></i>  - 线框图标
+ * <i class="fab fa-weixin"></i> - 品牌图标
+ * 
+ * 更多图标请参考: https://fontawesome.com/icons
+ */ 
