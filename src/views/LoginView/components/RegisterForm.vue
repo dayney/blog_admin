@@ -28,10 +28,30 @@
       </div>
 
       <div class="form-item">
+        <el-input
+          v-model="registerForm.email"
+          type="password"
+          placeholder="请输入邮箱地址"
+          :prefix-icon="Message"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="form-item">
+        <el-input
+          v-model="registerForm.phone"
+          type="password"
+          placeholder="请输入手机号"
+          :prefix-icon="Phone"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="form-item">
         <div class="captcha-wrapper">
           <el-input v-model="registerForm.captcha" placeholder="请输入验证码" class="custom-input captcha-input" />
           <div class="captcha-img" @click="refreshCaptcha">
-            <img src="https://pic2.imgdb.cn/item/646491ebe03e90d874c2c4e7.jpg" alt="验证码" />
+            <img :src="getImageUrl(captchaImageUrl)" alt="验证码" />
           </div>
         </div>
       </div>
@@ -50,9 +70,11 @@
 
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
-import { User, Lock } from '@element-plus/icons-vue';
+import { User, Lock, Phone, Message } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
+import { getImageUrl } from '@/utils/tools';
+import { getVerificationCode } from '@/api/login';
 
 const router = useRouter();
 
@@ -64,17 +86,30 @@ const registerFormRef = ref(null);
 
 // 注册表单
 const registerForm = reactive({
+  uuid: '',
   username: '',
   password: '',
   confirmPassword: '',
+  email: '',
+  phone: '',
   captcha: '',
   agreeTerms: false
 });
 
+let captchaImageUrl = ref('');
+getVerificationCode().then(res => {
+  const { uuid, image_path } = res;
+  registerForm.uuid = uuid;
+  captchaImageUrl.value = image_path;
+});
+
 // 清空表单数据
 const resetForm = () => {
+  registerForm.uuid = '';
   registerForm.username = '';
   registerForm.password = '';
+  registerForm.email = '';
+  registerForm.phone = '';
   registerForm.confirmPassword = '';
   registerForm.captcha = '';
   registerForm.agreeTerms = false;
@@ -130,18 +165,18 @@ const handleRegister = () => {
   registerFormRef.value.validate(valid => {
     if (valid) {
       loading.value = true;
+      console.log(registerForm, 'registerForm');
+      // setTimeout(() => {
+      //   loading.value = false;
 
-      setTimeout(() => {
-        loading.value = false;
+      //   // 注册成功，直接登录并跳转
+      //   localStorage.setItem('isLoggedIn', 'true');
+      //   localStorage.setItem('username', registerForm.username || '新用户');
+      //   localStorage.setItem('loginTime', new Date().toISOString());
 
-        // 注册成功，直接登录并跳转
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('username', registerForm.username || '新用户');
-        localStorage.setItem('loginTime', new Date().toISOString());
-
-        // 跳转到首页
-        router.push('/');
-      }, 500);
+      //   // 跳转到首页
+      //   router.push('/');
+      // }, 500);
     }
   });
 };

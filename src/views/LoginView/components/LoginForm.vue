@@ -20,7 +20,7 @@
         <div class="captcha-wrapper">
           <el-input v-model="loginForm.captcha" placeholder="请输入验证码" class="custom-input captcha-input" />
           <div class="captcha-img" @click="refreshCaptcha">
-            <img src="https://pic2.imgdb.cn/item/646491ebe03e90d874c2c4e7.jpg" alt="验证码" />
+            <img :src="getImageUrl(captchaImageUrl)" alt="验证码" />
           </div>
         </div>
       </div>
@@ -51,6 +51,8 @@ import { ref, reactive, defineExpose } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
+import { getVerificationCode, verificationUserInfo } from '@/api/login';
+import { getImageUrl } from '@/utils/tools';
 
 const router = useRouter();
 
@@ -62,10 +64,18 @@ const loginFormRef = ref(null);
 
 // 登录表单
 const loginForm = reactive({
+  uuid: '',
   username: '',
   password: '',
   captcha: '',
   remember: false
+});
+
+let captchaImageUrl = ref('');
+getVerificationCode().then(res => {
+  const { uuid, image_path } = res;
+  loginForm.uuid = uuid;
+  captchaImageUrl.value = image_path;
 });
 
 // 清空表单数据
@@ -98,23 +108,27 @@ const handleLogin = () => {
   loginFormRef.value.validate(valid => {
     if (valid) {
       loading.value = true;
+      console.log(loginForm, 'loginForm');
+      // verificationUserInfo(loginForm).then(res => {
+      //   console.log(res);
+      // });
 
-      setTimeout(() => {
-        loading.value = false;
+      // setTimeout(() => {
+      //   loading.value = false;
 
-        // 登录成功，设置登录状态
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('username', loginForm.username || '默认用户');
-        localStorage.setItem('loginTime', new Date().toISOString());
+      //   // 登录成功，设置登录状态
+      //   localStorage.setItem('isLoggedIn', 'true');
+      //   localStorage.setItem('username', loginForm.username || '默认用户');
+      //   localStorage.setItem('loginTime', new Date().toISOString());
 
-        // 如果设置了"记住我"，可以设置更长的有效期
-        if (loginForm.remember) {
-          localStorage.setItem('rememberMe', 'true');
-        }
+      //   // 如果设置了"记住我"，可以设置更长的有效期
+      //   if (loginForm.remember) {
+      //     localStorage.setItem('rememberMe', 'true');
+      //   }
 
-        // 跳转到首页
-        router.push('/');
-      }, 500);
+      //   // 跳转到首页
+      //   router.push('/');
+      // }, 500);
     }
   });
 };
