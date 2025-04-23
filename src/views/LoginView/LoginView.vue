@@ -205,8 +205,11 @@ const switchTab = tab => {
 /* AI图标容器 */
 .ai-container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  /* 添加边框确保是正方形 */
+  box-sizing: border-box;
 }
 
 /* 中央AI六边形 - 添加确切的位置信息便于计算连接线 */
@@ -215,9 +218,11 @@ const switchTab = tab => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /* 正六边形尺寸：宽高比为1:0.866，这里设置为120:104 */
   width: 120px;
   height: 104px;
   background-color: rgba(255, 255, 255, 0.1);
+  /* 正六边形路径，从顶点开始顺时针 */
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
   justify-content: center;
@@ -234,6 +239,7 @@ const switchTab = tab => {
 }
 
 .ai-inner {
+  /* 保持内部六边形与外部六边形比例一致 */
   width: 110px;
   height: 95px;
   background-color: rgba(25, 118, 210, 0.8); /* 匹配蓝色背景 */
@@ -272,6 +278,7 @@ const switchTab = tab => {
 
 .ai-icon {
   position: absolute;
+  /* 保持小六边形宽高比一致 */
   width: 30px;
   height: 26px;
   background-color: rgba(255, 255, 255, 0.15);
@@ -309,35 +316,35 @@ const switchTab = tab => {
 
 /* 图标位置 - 调整为六边形六个角 */
 .ai-icon-1 {
-  top: 0%; /* 正上方 */
+  top: -7%; /* 正上方 */
   left: 50%;
   transform: translateX(-50%);
   animation-delay: 0.1s;
 }
 .ai-icon-2 {
-  top: 25%; /* 右上角 */
-  left: 93%;
+  top: 18%; /* 右上角 */
+  left: 98%;
   animation-delay: 0.2s;
 }
 .ai-icon-3 {
-  top: 75%; /* 右下角 */
-  left: 93%;
+  top: 74%; /* 右下角 */
+  left: 98%;
   animation-delay: 0.3s;
 }
 .ai-icon-4 {
-  top: 100%; /* 正下方 */
+  top: 99%; /* 正下方 */
   left: 50%;
   transform: translateX(-50%);
   animation-delay: 0.4s;
 }
 .ai-icon-5 {
-  top: 75%; /* 左下角 */
-  left: 7%;
+  top: 73%; /* 左下角 */
+  left: -8%;
   animation-delay: 0.5s;
 }
 .ai-icon-6 {
-  top: 25%; /* 左上角 */
-  left: 7%;
+  top: 17%; /* 左上角 */
+  left: -8%;
   animation-delay: 0.6s;
 }
 
@@ -367,7 +374,7 @@ const switchTab = tab => {
 /* 连接线 - 从中央六边形角到小六边形角 */
 .ai-line-1 {
   width: 95px;
-  top: 25%;
+  top: 33%;
   left: 50%;
   transform: rotate(-90deg); /* 连接到顶部 */
   transform-origin: left center;
@@ -378,10 +385,10 @@ const switchTab = tab => {
 }
 
 .ai-line-2 {
-  width: 95px;
-  top: 30%;
+  width: 100px;
+  top: 41%;
   left: 70%;
-  transform: rotate(-30deg); /* 连接到右上角 */
+  transform: rotate(-32deg); /* 连接到右上角 */
   transform-origin: left center;
   animation-delay: 0.2s;
 }
@@ -390,10 +397,10 @@ const switchTab = tab => {
 }
 
 .ai-line-3 {
-  width: 95px;
-  top: 70%;
+  width: 100px;
+  top: 58%;
   left: 70%;
-  transform: rotate(30deg); /* 连接到右下角 */
+  transform: rotate(32deg); /* 连接到右下角 */
   transform-origin: left center;
   animation-delay: 0.3s;
 }
@@ -403,7 +410,7 @@ const switchTab = tab => {
 
 .ai-line-4 {
   width: 95px;
-  top: 75%;
+  top: 67%;
   left: 50%;
   transform: rotate(90deg); /* 连接到底部 */
   transform-origin: left center;
@@ -414,10 +421,10 @@ const switchTab = tab => {
 }
 
 .ai-line-5 {
-  width: 95px;
-  top: 70%;
+  width: 100px;
+  top: 58%;
   left: 30%;
-  transform: rotate(150deg); /* 连接到左下角 */
+  transform: rotate(148deg); /* 连接到左下角 */
   transform-origin: left center;
   animation-delay: 0.5s;
 }
@@ -426,15 +433,21 @@ const switchTab = tab => {
 }
 
 .ai-line-6 {
-  width: 95px;
-  top: 30%;
+  width: 100px;
+  top: 41%;
   left: 30%;
-  transform: rotate(210deg); /* 连接到左上角 */
+  transform: rotate(212deg); /* 连接到左上角 */
   transform-origin: left center;
   animation-delay: 0.6s;
 }
 .ai-line-6::after {
   animation-delay: 0.6s;
+}
+
+/* 去掉连接线中的文本内容 */
+.ai-line-1, .ai-line-2, .ai-line-3, .ai-line-4, .ai-line-5, .ai-line-6 {
+  font-size: 0;
+  color: transparent;
 }
 
 /* 粒子效果 */
