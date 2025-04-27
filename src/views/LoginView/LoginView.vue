@@ -59,8 +59,11 @@
             </div>
           </div>
 
-          <!-- 动态组件 -->
-          <component :is="currentTabComponent" ref="formRef" />
+          <!-- 表单容器 -->
+          <div class="form-container">
+            <!-- 动态组件 -->
+            <component :is="currentTabComponent" ref="formRef" />
+          </div>
         </div>
       </div>
     </div>
@@ -135,7 +138,7 @@ const switchTab = tab => {
 .center-section {
   display: flex;
   width: 900px;
-  height: 600px;
+  height: 700px; /* 增加高度，从600px到700px */
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -216,7 +219,7 @@ const switchTab = tab => {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 120px;
-  height: 104px;
+  height: 120px;
   background-color: rgba(255, 255, 255, 0.1);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
@@ -225,17 +228,12 @@ const switchTab = tab => {
   overflow: hidden;
   z-index: 3;
   cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.ai-hexagon:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.5s ease;
 }
 
 .ai-inner {
   width: 110px;
-  height: 95px;
+  height: 110px;
   background-color: rgba(25, 118, 210, 0.8); /* 匹配蓝色背景 */
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
@@ -255,9 +253,8 @@ const switchTab = tab => {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 160px;
-  height: 144px;
+  height: 160px;
   background: radial-gradient(circle, rgba(255, 165, 0, 0.7) 0%, rgba(255, 165, 0, 0) 70%);
-  animation: pulse 3s infinite alternate;
   z-index: 1;
 }
 
@@ -273,7 +270,7 @@ const switchTab = tab => {
 .ai-icon {
   position: absolute;
   width: 30px;
-  height: 26px;
+  height: 30px;
   background-color: rgba(255, 255, 255, 0.15);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
@@ -282,25 +279,12 @@ const switchTab = tab => {
   color: white;
   font-size: 12px;
   z-index: 3;
-  transition: all 0.3s ease;
-  animation: pulseIcon 3s infinite alternate;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 .ai-icon:hover {
-  transform: scale(1.2);
   background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-.ai-icon:hover::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  animation: pulse 1.5s infinite alternate;
 }
 
 .ai-icon i {
@@ -309,36 +293,30 @@ const switchTab = tab => {
 
 /* 图标位置 - 调整为参考图片中的布局 */
 .ai-icon-1 {
-  top: 5%; /* 顶部 */
+  top: -6%; /* 顶部 */
   left: 50%;
   transform: translateX(-50%);
-  animation-delay: 0.1s;
 }
 .ai-icon-2 {
-  top: 30%; /* 右上方 */
-  left: 85%;
-  animation-delay: 0.2s;
+  top: 20%;
+  left: 93%;
 }
 .ai-icon-3 {
   top: 70%; /* 右下方 */
-  left: 85%;
-  animation-delay: 0.3s;
+  left: 93%;
 }
 .ai-icon-4 {
   top: 95%; /* 底部 */
   left: 50%;
   transform: translateX(-50%);
-  animation-delay: 0.4s;
 }
 .ai-icon-5 {
   top: 70%; /* 左下方 */
-  left: 15%;
-  animation-delay: 0.5s;
+  left: -2%;
 }
 .ai-icon-6 {
-  top: 30%; /* 左上方 */
-  left: 15%;
-  animation-delay: 0.6s;
+  top: 20%; /* 左上方 */
+  left: -2%;
 }
 
 /* 连接线 - 从中央六边形角到小六边形角 */
@@ -367,72 +345,78 @@ const switchTab = tab => {
 /* 连接线 - 重新调整以匹配图片中的样式 */
 .ai-line-1 {
   width: 80px;
-  top: 25%;
+  top: 30%;
   left: 50%;
   transform: rotate(-90deg); /* 垂直向上 */
   transform-origin: left center;
   animation-delay: 0.1s;
 }
+
 .ai-line-1::after {
   animation-delay: 0.1s;
 }
 
 .ai-line-2 {
   width: 80px;
-  top: 35%;
-  left: 65%;
+  top: 40%;
+  left: 70%;
   transform: rotate(-30deg); /* 右上 */
   transform-origin: left center;
   animation-delay: 0.2s;
 }
+
 .ai-line-2::after {
   animation-delay: 0.2s;
 }
 
 .ai-line-3 {
   width: 80px;
-  top: 65%;
-  left: 65%;
+  top: 59%;
+  left: 70%;
   transform: rotate(30deg); /* 右下 */
   transform-origin: left center;
   animation-delay: 0.3s;
 }
+
 .ai-line-3::after {
   animation-delay: 0.3s;
 }
 
 .ai-line-4 {
   width: 80px;
-  top: 75%;
+  top: 69%;
   left: 50%;
   transform: rotate(90deg); /* 垂直向下 */
   transform-origin: left center;
   animation-delay: 0.4s;
 }
+
 .ai-line-4::after {
   animation-delay: 0.4s;
 }
 
 .ai-line-5 {
   width: 80px;
-  top: 65%;
-  left: 35%;
+  top: 59.5%;
+  left: 30.5%;
   transform: rotate(150deg); /* 左下 */
   transform-origin: left center;
   animation-delay: 0.5s;
 }
+
 .ai-line-5::after {
   animation-delay: 0.5s;
 }
 
 .ai-line-6 {
   width: 80px;
-  top: 35%;
-  left: 35%;
+  top: 40%;
+  left: 30.5%;
   transform: rotate(210deg); /* 左上 */
   transform-origin: left center;
   animation-delay: 0.6s;
 }
+
 .ai-line-6::after {
   animation-delay: 0.6s;
 }
@@ -621,13 +605,20 @@ const switchTab = tab => {
   display: flex;
   flex-direction: column;
   background-color: #fff;
+  position: relative;
 }
 
 /* 选项卡样式 */
 .form-tabs {
   display: flex;
   border-bottom: 1px solid #e4e7ed;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  z-index: 10;
+  height: 52px; /* 固定选项卡高度 */
 }
 
 .tab-item {
@@ -647,5 +638,17 @@ const switchTab = tab => {
 .tab-item.active {
   color: #409eff;
   border-bottom: 2px solid #409eff;
+}
+
+/* 表单容器 */
+.form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 92px; /* 40px(顶部内边距) + 52px(选项卡高度) */
+  padding: 0;
+  height: calc(100% - 92px);
+  overflow: auto;
+  width: 100%;
 }
 </style>
