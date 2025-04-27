@@ -1,0 +1,165 @@
+@import './variables.scss';
+@import './mixins.scss';
+
+// 全局样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: $bg-color;
+  color: $text-primary;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  @include custom-scrollbar();
+}
+
+// Element Plus 组件样式优化
+.el-button {
+  &--primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    
+    &:hover, 
+    &:focus {
+      background-color: $primary-hover;
+      border-color: $primary-hover;
+    }
+    
+    &:active {
+      background-color: $primary-dark;
+      border-color: $primary-dark;
+    }
+  }
+}
+
+.el-menu {
+  border-right: none;
+}
+
+.el-table {
+  th {
+    background-color: #fafafa;
+  }
+  
+  &--striped {
+    .el-table__row {
+      &:nth-child(odd) {
+        background-color: $light-color;
+      }
+    }
+  }
+}
+
+.el-tag {
+  border-radius: $border-radius-mini;
+}
+
+.el-card {
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  @include transition;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+.el-form {
+  &-item {
+    margin-bottom: $spacing-base;
+  }
+}
+
+.el-dialog {
+  border-radius: $border-radius;
+  overflow: hidden;
+  
+  &__header {
+    padding: $spacing-base $spacing-large;
+    border-bottom: 1px solid $border-color-light;
+  }
+  
+  &__footer {
+    padding: $spacing-base $spacing-large;
+    border-top: 1px solid $border-color-light;
+  }
+}
+
+// 通用工具类
+.card {
+  @include ios-card;
+}
+
+.text-ellipsis {
+  @include text-ellipsis;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+.flex-column {
+  @include flex-column;
+}
+
+// 间距类
+@each $name, $size in (
+  'mini': $spacing-mini,
+  'small': $spacing-small,
+  'base': $spacing-base,
+  'large': $spacing-large,
+  'xl': $spacing-xl,
+  'xxl': $spacing-xxl
+) {
+  .m-#{$name} { margin: $size; }
+  .mt-#{$name} { margin-top: $size; }
+  .mr-#{$name} { margin-right: $size; }
+  .mb-#{$name} { margin-bottom: $size; }
+  .ml-#{$name} { margin-left: $size; }
+  
+  .p-#{$name} { padding: $size; }
+  .pt-#{$name} { padding-top: $size; }
+  .pr-#{$name} { padding-right: $size; }
+  .pb-#{$name} { padding-bottom: $size; }
+  .pl-#{$name} { padding-left: $size; }
+}
+
+// 响应式类
+.hide-on-mobile {
+  @include respond-to('small') {
+    display: none !important;
+  }
+}
+
+.hide-on-desktop {
+  @include respond-to('large') {
+    display: none !important;
+  }
+}
+
+// 动画
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease;
+}

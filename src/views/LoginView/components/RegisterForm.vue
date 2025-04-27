@@ -1,50 +1,61 @@
 <template>
   <div class="auth-form-wrapper">
-    <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" @submit.prevent="handleRegister">
+    <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" @submit.prevent="handleRegister" class="register-form">
       <el-form-item prop="username">
-        <el-input v-model="registerForm.username" placeholder="请设置用户名" :prefix-icon="User" class="custom-input" />
+        <div class="input-with-icon">
+          <i class="fas fa-user"></i>
+          <el-input v-model="registerForm.username" placeholder="请设置用户名" class="custom-input" />
+        </div>
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input
-          v-model="registerForm.password"
-          type="password"
-          placeholder="请设置密码"
-          :prefix-icon="Lock"
-          show-password
-          class="custom-input"
-        />
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <el-input
+            v-model="registerForm.password"
+            type="password"
+            placeholder="请设置密码"
+            show-password
+            class="custom-input"
+          />
+        </div>
       </el-form-item>
 
       <el-form-item prop="confirmPassword">
-        <el-input
-          v-model="registerForm.confirmPassword"
-          type="password"
-          placeholder="请再次输入密码"
-          :prefix-icon="Lock"
-          show-password
-          class="custom-input"
-        />
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <el-input
+            v-model="registerForm.confirmPassword"
+            type="password"
+            placeholder="请再次输入密码"
+            show-password
+            class="custom-input"
+          />
+        </div>
       </el-form-item>
 
       <el-form-item prop="email">
-        <el-input
-          v-model="registerForm.email"
-          type="email"
-          placeholder="请输入邮箱地址"
-          :prefix-icon="Message"
-          class="custom-input"
-        />
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <el-input
+            v-model="registerForm.email"
+            type="email"
+            placeholder="请输入邮箱地址"
+            class="custom-input"
+          />
+        </div>
       </el-form-item>
 
       <el-form-item prop="phone">
-        <el-input
-          v-model="registerForm.phone"
-          type="text"
-          placeholder="请输入手机号"
-          :prefix-icon="Phone"
-          class="custom-input"
-        />
+        <div class="input-with-icon">
+          <i class="fas fa-phone"></i>
+          <el-input
+            v-model="registerForm.phone"
+            type="text"
+            placeholder="请输入手机号"
+            class="custom-input"
+          />
+        </div>
       </el-form-item>
 
       <el-form-item prop="captcha">
@@ -65,7 +76,6 @@
 
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
-import { User, Lock, Phone, Message } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { getImageUrl } from '@/utils/tools';
@@ -198,66 +208,104 @@ defineExpose({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 /* 表单项样式 */
-.form-item {
+.auth-form-wrapper {
+  @include flex-column;
+  justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 0 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.register-form {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.el-form-item {
   margin-bottom: 20px;
 }
 
-.auth-form-wrapper {
-  flex: 1;
+/* 输入框样式 */
+.input-with-icon {
+  position: relative;
+  @include flex-start;
+  width: 100%;
+  
+  i {
+    position: absolute;
+    left: 12px;
+    color: $text-placeholder;
+    font-size: 16px;
+    z-index: 1;
+  }
+}
+
+.custom-input {
+  width: 100%;
+  
+  :deep(.el-input__inner) {
+    padding-left: 40px;
+    height: 44px;
+    font-size: $font-size-base;
+    border-radius: $border-radius-mini;
+  }
 }
 
 /* 协议同意 */
 .term-link {
-  color: #409eff;
+  color: $primary-color;
   text-decoration: none;
-}
-
-.term-link:hover {
-  color: #66b1ff;
+  @include transition;
+  
+  &:hover {
+    color: $primary-hover;
+  }
 }
 
 /* 登录按钮 */
 .btn-submit {
   width: 100%;
   height: 44px;
-  font-size: 16px;
-  background-color: #409eff;
+  font-size: $font-size-medium;
+  background-color: $primary-color;
   border: none;
-  border-radius: 4px;
+  border-radius: $border-radius-mini;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-submit:hover {
-  background-color: #66b1ff;
+  @include transition(background-color);
+  
+  &:hover {
+    background-color: $primary-hover;
+  }
 }
 
 /* Element UI 自定义样式 */
-:deep(.custom-input) {
-  --el-input-height: 40px;
-}
-
 :deep(.el-button--primary) {
-  --el-button-bg-color: #409eff;
-  --el-button-border-color: #409eff;
-  --el-button-hover-bg-color: #66b1ff;
-  --el-button-hover-border-color: #66b1ff;
-  --el-button-active-bg-color: #3a8ee6;
-  --el-button-active-border-color: #3a8ee6;
+  --el-button-bg-color: $primary-color;
+  --el-button-border-color: $primary-color;
+  --el-button-hover-bg-color: $primary-hover;
+  --el-button-hover-border-color: $primary-hover;
+  --el-button-active-bg-color: $primary-dark;
+  --el-button-active-border-color: $primary-dark;
 }
 
 :deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
-  background-color: #409eff;
-  border-color: #409eff;
+  background-color: $primary-color;
+  border-color: $primary-color;
 }
 
 :deep(.el-checkbox__input.is-checked + .el-checkbox__label) {
-  color: #606266;
+  color: $text-secondary;
 }
 
 :deep(.el-checkbox__inner) {
-  border-color: #dcdfe6;
+  border-color: $border-color;
 }
 </style>

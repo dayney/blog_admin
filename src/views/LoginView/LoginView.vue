@@ -112,7 +112,10 @@ const switchTab = tab => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 .login-view {
   width: 100vw;
   height: 100vh;
@@ -128,7 +131,7 @@ const switchTab = tab => {
 .auth-container {
   width: 100vw;
   height: 100vh;
-  background: #f7f8fb; /* 深蓝色背景 */
+  background: $light-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,17 +141,17 @@ const switchTab = tab => {
 .center-section {
   display: flex;
   width: 900px;
-  height: 700px; /* 增加高度，从600px到700px */
+  height: 650px;
   background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: $border-radius;
+  box-shadow: $shadow-lg;
   overflow: hidden;
 }
 
 /* 左侧Logo部分 - 蓝色背景 */
 .logo-section {
   width: 50%;
-  background: #1976d2; /* 修改为明亮的蓝色 */
+  background: $primary-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -157,20 +160,20 @@ const switchTab = tab => {
   padding: 40px;
   position: relative;
   overflow: hidden;
-}
-
-/* 添加背景网格线 */
-.logo-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  z-index: 1;
+  
+  /* 添加背景网格线 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 1;
+  }
 }
 
 .auth-logo {
@@ -281,14 +284,14 @@ const switchTab = tab => {
   z-index: 3;
   transition: background-color 0.3s ease;
   cursor: pointer;
-}
-
-.ai-icon:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.ai-icon i {
-  opacity: 0.9;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  i {
+    opacity: 0.9;
+  }
 }
 
 /* 图标位置 - 调整为参考图片中的布局 */
@@ -611,7 +614,7 @@ const switchTab = tab => {
 /* 选项卡样式 */
 .form-tabs {
   display: flex;
-  border-bottom: 1px solid #e4e7ed;
+  border-bottom: 1px solid $border-color-light;
   margin-bottom: 20px;
   position: absolute;
   top: 40px;
@@ -625,29 +628,30 @@ const switchTab = tab => {
   flex: 1;
   padding: 15px 0;
   font-size: 16px;
-  color: #606266;
+  color: $text-secondary;
   cursor: pointer;
   text-align: center;
   transition: all 0.3s;
-}
-
-.tab-item:hover {
-  color: #409eff;
-}
-
-.tab-item.active {
-  color: #409eff;
-  border-bottom: 2px solid #409eff;
+  
+  &:hover {
+    color: $primary-color;
+  }
+  
+  &.active {
+    color: $primary-color;
+    border-bottom: 2px solid $primary-color;
+  }
 }
 
 /* 表单容器 */
 .form-container {
+  $tab-height: 52px;
+  
+  @include flex-column;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-top: 92px; /* 40px(顶部内边距) + 52px(选项卡高度) */
+  margin-top: $tab-height; /* 选项卡高度 */
   padding: 0;
-  height: calc(100% - 92px);
+  height: calc(100% - #{$tab-height});
   overflow: auto;
   width: 100%;
 }

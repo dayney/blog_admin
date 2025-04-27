@@ -1,8 +1,6 @@
 <template>
   <div class="auth-form-wrapper">
-    <h2 class="login-title">用户登录</h2>
-    
-    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" @submit.prevent="handleLogin">
+    <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" @submit.prevent="handleLogin" class="login-form">
       <el-form-item prop="username">
         <div class="input-with-icon">
           <i class="fas fa-user"></i>
@@ -34,7 +32,7 @@
         <a href="javascript:;" class="forgot-link">忘记密码?</a>
       </div>
 
-      <el-button type="primary" native-type="submit" class="login-btn" :loading="loading">
+      <el-button type="primary" native-type="submit" class="btn-submit" :loading="loading">
         <span v-if="loading">
           <i class="fas fa-spinner fa-spin"></i> 登录中...
         </span>
@@ -158,162 +156,193 @@ defineExpose({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 /* 表单项样式 */
 .auth-form-wrapper {
-  flex: 1;
-  padding: 20px 0;
+  @include flex-column;
+  justify-content: flex-start;
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 0 0; /* 移除水平内边距 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-form {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.el-form-item {
+  margin-bottom: 20px;
 }
 
 .login-title {
-  font-size: 24px;
-  font-weight: 500;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-medium;
   margin-bottom: 30px;
-  color: #303133;
+  color: $text-primary;
   text-align: center;
 }
 
 .input-with-icon {
   position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-with-icon i {
-  position: absolute;
-  left: 12px;
-  color: #909399;
-  font-size: 16px;
-  z-index: 1;
+  @include flex-start;
+  width: 100%;
+  
+  i {
+    position: absolute;
+    left: 12px;
+    color: $text-placeholder;
+    font-size: 16px;
+    z-index: 1;
+  }
 }
 
 .custom-input {
   width: 100%;
-}
-
-.custom-input :deep(.el-input__inner) {
-  padding-left: 40px;
-  height: 44px;
-  font-size: 14px;
-  border-radius: 4px;
+  
+  :deep(.el-input__inner) {
+    padding-left: 40px;
+    height: 44px;
+    font-size: $font-size-base;
+    border-radius: $border-radius-mini;
+  }
 }
 
 /* 记住账号和忘记密码 */
 .remember-forgot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   margin-bottom: 25px;
 }
 
 .remember-me {
-  display: flex;
-  align-items: center;
-}
-
-.remember-me :deep(.el-checkbox__label) {
-  font-size: 14px;
-  color: #606266;
+  @include flex-start;
+  
+  :deep(.el-checkbox__label) {
+    font-size: $font-size-base;
+    color: $text-secondary;
+  }
 }
 
 .forgot-link {
-  font-size: 14px;
-  color: var(--primary-color);
+  font-size: $font-size-base;
+  color: $primary-color;
   text-decoration: none;
-}
-
-.forgot-link:hover {
-  opacity: 0.8;
+  @include transition;
+  
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 /* 登录按钮 */
-.login-btn {
+.btn-submit {
   width: 100%;
   height: 44px;
-  font-size: 16px;
-  background-color: var(--primary-color);
+  font-size: $font-size-medium;
+  background-color: $primary-color;
   border: none;
-  border-radius: 4px;
+  border-radius: $border-radius-mini;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.login-btn:hover {
-  background-color: var(--primary-hover);
+  @include transition(background-color);
+  
+  &:hover {
+    background-color: $primary-hover;
+  }
 }
 
 /* 第三方登录 */
 .other-login {
   margin-top: 30px;
-}
-
-.other-login-title {
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.other-login-title::before,
-.other-login-title::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: calc(50% - 100px);
-  height: 1px;
-  background-color: #e4e7ed;
-}
-
-.other-login-title::before {
-  left: 0;
-}
-
-.other-login-title::after {
-  right: 0;
-}
-
-.other-login-title span {
-  position: relative;
-  padding: 0 15px;
-  background-color: #fff;
-  font-size: 14px;
-  color: #909399;
-  z-index: 1;
+  
+  &-title {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 100px);
+      height: 1px;
+      background-color: $border-color-light;
+    }
+    
+    &::before {
+      left: 0;
+    }
+    
+    &::after {
+      right: 0;
+    }
+    
+    span {
+      position: relative;
+      padding: 0 15px;
+      background-color: #fff;
+      font-size: $font-size-base;
+      color: $text-placeholder;
+      z-index: 1;
+    }
+  }
 }
 
 .social-login {
-  display: flex;
-  justify-content: center;
+  @include flex-center;
   gap: 20px;
   margin-top: 20px;
 }
 
 .social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  @include icon-button(40px, #fff);
+  @include transition(transform, 0.3s, ease);
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 }
 
-.social-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+// 社交平台背景色
+$social-colors: (
+  'qq': #12B7F5,
+  'weixin': #07C160,
+  'weibo': #E6162D
+);
+
+@each $name, $color in $social-colors {
+  .#{$name}-bg {
+    background-color: $color;
+  }
 }
 
-.qq-bg {
-  background-color: #12B7F5;
+/* Element UI 自定义样式 */
+:deep(.el-button--primary) {
+  --el-button-bg-color: $primary-color;
+  --el-button-border-color: $primary-color;
+  --el-button-hover-bg-color: $primary-hover;
+  --el-button-hover-border-color: $primary-hover;
+  --el-button-active-bg-color: $primary-dark;
+  --el-button-active-border-color: $primary-dark;
 }
 
-.weixin-bg {
-  background-color: #07C160;
+:deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
+  background-color: $primary-color;
+  border-color: $primary-color;
 }
 
-.weibo-bg {
-  background-color: #E6162D;
+:deep(.el-checkbox__input.is-checked + .el-checkbox__label) {
+  color: $text-secondary;
+}
+
+:deep(.el-checkbox__inner) {
+  border-color: $border-color;
 }
 </style>

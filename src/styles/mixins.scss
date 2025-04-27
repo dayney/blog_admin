@@ -1,0 +1,156 @@
+// 布局混合
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// 定位混合
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// 文本混合
+@mixin text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin multi-line-ellipsis($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 响应式设计
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "small" {
+    @media (max-width: 767px) { @content; }
+  }
+  @else if $breakpoint == "medium" {
+    @media (min-width: 768px) and (max-width: 1023px) { @content; }
+  }
+  @else if $breakpoint == "large" {
+    @media (min-width: 1024px) { @content; }
+  }
+}
+
+// iOS风格的毛玻璃效果
+@mixin glassmorphism($bg-color: rgba(255, 255, 255, 0.8), $blur: 10px) {
+  background-color: $bg-color;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// 卡片样式
+@mixin ios-card {
+  background-color: $card-bg-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  padding: $spacing-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+// 渐变背景
+@mixin gradient-bg($start-color, $end-color, $direction: to right) {
+  background: linear-gradient($direction, $start-color, $end-color);
+}
+
+// 图标按钮
+@mixin icon-button($size: 40px, $color: $primary-color) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background-color: transparent;
+  color: $color;
+  @include flex-center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  
+  &:hover {
+    background-color: rgba($color, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+// 过渡效果
+@mixin transition($properties: all, $duration: 0.3s, $timing: ease) {
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+}
+
+// 滚动条样式
+@mixin custom-scrollbar($width: 8px, $track-color: rgba(0, 0, 0, 0.05), $thumb-color: rgba(0, 0, 0, 0.2)) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background-color: $track-color;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: $width / 2;
+    
+    &:hover {
+      background-color: darken($thumb-color, 10%);
+    }
+  }
+} 

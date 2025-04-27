@@ -1,8 +1,18 @@
 <template>
-  <div class="captcha-wrapper">
-    <el-input v-model="inputValue" :placeholder="placeholder" class="custom-input captcha-input" @input="handleInput" />
-    <div class="captcha-img" @click="handleRefresh">
-      <img :src="getImageUrl(captchaUrl)" alt="验证码" />
+  <div class="captcha-container">
+    <div class="input-with-icon">
+      <i class="fas fa-shield-alt"></i>
+      <div class="captcha-wrapper">
+        <el-input 
+          v-model="inputValue" 
+          :placeholder="placeholder" 
+          class="custom-input captcha-input" 
+          @input="handleInput"
+        />
+        <div class="captcha-img" @click="handleRefresh">
+          <img :src="getImageUrl(captchaUrl)" alt="验证码" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,8 +59,30 @@ const handleRefresh = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 /* 验证码样式 */
+.captcha-container {
+  width: 100%;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  
+  i {
+    position: absolute;
+    left: 12px;
+    color: $text-placeholder;
+    font-size: 16px;
+    z-index: 1;
+  }
+}
+
 .captcha-wrapper {
   display: flex;
   align-items: center;
@@ -62,40 +94,47 @@ const handleRefresh = () => {
 .captcha-input {
   width: calc(100% - 130px);
   flex-shrink: 1;
+  
+  :deep(.el-input__inner) {
+    padding-left: 40px;
+    height: 44px;
+    font-size: 14px;
+    border-radius: $border-radius-mini;
+  }
 }
 
 .captcha-img {
   width: 120px;
-  height: 40px;
-  border-radius: 4px;
+  height: 44px;
+  border-radius: $border-radius-mini;
   overflow: hidden;
   cursor: pointer;
   background-color: #f2f3f5;
-  border: 1px solid #dcdfe6;
+  border: 1px solid $border-color-light;
   padding: 0;
   flex-shrink: 0;
   position: relative;
-}
-
-.captcha-img img {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
+  
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
 }
 
 /* Element UI 自定义样式 */
 :deep(.custom-input) {
-  --el-input-height: 40px;
+  --el-input-height: 44px;
 }
 
 :deep(.el-input__wrapper) {
-  box-shadow: 0 0 0 1px #dcdfe6 inset;
-}
-
-:deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 0 0 1px #409eff inset;
+  box-shadow: 0 0 0 1px $border-color-light inset;
+  
+  &.is-focus {
+    box-shadow: 0 0 0 1px $primary-color inset;
+  }
 }
 </style>
