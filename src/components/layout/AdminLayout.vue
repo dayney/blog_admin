@@ -3,17 +3,31 @@
     <!-- 左侧边栏 -->
     <div class="sidebar" :class="{ 'is-collapsed': isCollapsed, 'is-open': isMobileOpen }">
       <div class="logo-container">
-        <img src="/logo.png" alt="Logo" class="sidebar-logo" />
-        <h2 class="logo" v-if="!isCollapsed">博客管理系统</h2>
+        <div class="logo-wrapper">
+          <img src="/images/blue-tech-logo.svg" alt="Logo" class="sidebar-logo" />
+          <h2 class="logo" v-if="!isCollapsed">小兵CMS</h2>
+        </div>
       </div>
+      
+      <!-- 折叠/展开按钮 -->
+      <div class="collapse-button-container">
+        <div class="collapse-button" @click="toggleSidebar">
+          <i class="fas fa-bars" v-if="isCollapsed"></i>
+          <i class="fas fa-indent" v-else></i>
+        </div>
+      </div>
+      
       <!-- 菜单搜索框 -->
-      <div class="menu-search">
-        <el-input v-model="searchMenu" placeholder="搜索菜单" clearable>
-          <template #prefix>
-            <i class="fas fa-search"></i>
-          </template>
-        </el-input>
+      <div class="menu-search" v-if="!isCollapsed">
+        <div class="search-wrapper">
+          <el-input v-model="searchMenu" placeholder="请输入需要检索的菜单名称" clearable>
+            <template #prefix>
+              <i class="fas fa-search search-icon"></i>
+            </template>
+          </el-input>
+        </div>
       </div>
+      
       <!-- 侧边栏菜单 -->
       <el-menu
         :default-active="activeMenu"
@@ -21,90 +35,72 @@
         @select="handleSelect"
         router
         :collapse="isCollapsed"
-        background-color="transparent"
-        text-color="var(--dark-color)"
-        active-text-color="var(--primary-color)"
+        text-color="#333333"
+        active-text-color="#FFFFFF"
+        :unique-opened="true"
       >
-        <el-menu-item index="dashboard">
-          <i class="fas fa-tachometer-alt"></i>
-          <span>仪表板</span>
+        <el-menu-item index="dashboard" class="first-menu-item">
+          <div class="icon-container">
+            <i class="fas fa-tachometer-alt menu-icon"></i>
+          </div>
+          <template #title>仪表盘</template>
         </el-menu-item>
-
-        <!-- 系统设置菜单组 -->
-        <el-sub-menu index="settings">
-          <template #title>
-            <i class="fas fa-cog"></i>
-            <span>系统设置</span>
-          </template>
-          <el-menu-item index="settings-website">
-            <i class="fas fa-globe"></i>
-            <span>网站设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-seo">
-            <i class="fas fa-search"></i>
-            <span>SEO设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-image">
-            <i class="fas fa-image"></i>
-            <span>图片设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-mobile">
-            <i class="fas fa-mobile-alt"></i>
-            <span>移动端设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-user">
-            <i class="fas fa-user-cog"></i>
-            <span>用户设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-wechat">
-            <i class="fab fa-weixin"></i>
-            <span>微信设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-content">
-            <i class="fas fa-file-alt"></i>
-            <span>内容设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-application">
-            <i class="fas fa-cube"></i>
-            <span>应用设置</span>
-          </el-menu-item>
-          <el-menu-item index="settings-finance">
-            <i class="fas fa-yen-sign"></i>
-            <span>财务设置</span>
-          </el-menu-item>
-        </el-sub-menu>
-
-        <!-- 系统工具菜单组 -->
-        <el-sub-menu index="system">
-          <template #title>
-            <i class="fas fa-tools"></i>
-            <span>系统工具</span>
-          </template>
-          <el-menu-item index="system-cache">
-            <i class="fas fa-database"></i>
-            <span>系统缓存</span>
-          </el-menu-item>
-          <el-menu-item index="system-attachment">
-            <i class="fas fa-paperclip"></i>
-            <span>附件设置</span>
-          </el-menu-item>
-          <el-menu-item index="system-storage">
-            <i class="fas fa-hdd"></i>
-            <span>存储策略</span>
-          </el-menu-item>
-          <el-menu-item index="system-sms">
-            <i class="fas fa-sms"></i>
-            <span>短信设置</span>
-          </el-menu-item>
-          <el-menu-item index="system-email">
-            <i class="fas fa-envelope"></i>
-            <span>邮件设置</span>
-          </el-menu-item>
-          <el-menu-item index="system-notification">
-            <i class="fas fa-bell"></i>
-            <span>系统提醒</span>
-          </el-menu-item>
-        </el-sub-menu>
+        
+        <el-menu-item index="content">
+          <div class="icon-container">
+            <i class="fas fa-file-alt menu-icon"></i>
+          </div>
+          <template #title>内容管理</template>
+        </el-menu-item>
+        
+        <el-menu-item index="media">
+          <div class="icon-container">
+            <i class="fas fa-photo-video menu-icon"></i>
+          </div>
+          <template #title>媒体管理</template>
+        </el-menu-item>
+        
+        <el-menu-item index="user">
+          <div class="icon-container">
+            <i class="fas fa-user-friends menu-icon"></i>
+          </div>
+          <template #title>用户管理</template>
+        </el-menu-item>
+        
+        <el-menu-item index="wechat">
+          <div class="icon-container">
+            <i class="fab fa-weixin menu-icon"></i>
+          </div>
+          <template #title>微信管理</template>
+        </el-menu-item>
+        
+        <el-menu-item index="seo">
+          <div class="icon-container">
+            <i class="fas fa-search menu-icon"></i>
+          </div>
+          <template #title>SEO优化</template>
+        </el-menu-item>
+        
+        <el-menu-item index="prototype">
+          <div class="icon-container">
+            <i class="fas fa-pencil-ruler menu-icon"></i>
+          </div>
+          <template #title>原型设计</template>
+        </el-menu-item>
+        
+        <el-menu-item index="page">
+          <div class="icon-container">
+            <i class="fas fa-desktop menu-icon"></i>
+          </div>
+          <template #title>页面设计</template>
+        </el-menu-item>
+        
+        <el-menu-item index="system">
+          <div class="icon-container">
+            <i class="fas fa-cog menu-icon"></i>
+          </div>
+          <template #title>系统设置</template>
+        </el-menu-item>
       </el-menu>
     </div>
 
@@ -113,44 +109,48 @@
       <!-- 顶部导航栏 -->
       <div class="nav-bar">
         <div class="left">
-          <i class="fas fa-bars toggle-sidebar" @click="toggleSidebar"></i>
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="route.meta && route.meta.title">{{ route.meta.title }}</el-breadcrumb-item>
-          </el-breadcrumb>
+          <div class="top-search-wrapper">
+            <el-input
+              placeholder="搜索..."
+              v-model="searchKeyword"
+              class="search-input"
+            >
+              <template #prefix>
+                <i class="fas fa-search"></i>
+              </template>
+            </el-input>
+          </div>
+        </div>
+        <div class="center">
+          <!-- 移除搜索框 -->
         </div>
         <div class="right">
+          <div class="notification">
+            <el-badge :value="2" class="notification-badge">
+              <i class="fas fa-bell"></i>
+            </el-badge>
+          </div>
+          <div class="divider"></div>
           <el-dropdown>
-            <span class="user-profile">
-              <i class="fas fa-user"></i>
-              <span>管理员</span>
-            </span>
+            <div class="user-profile">
+              <template v-if="hasAvatar">
+                <img :src="userInfo.avatar" alt="用户头像" class="avatar" />
+              </template>
+              <div v-else class="avatar-placeholder">
+                {{ userInitial }}
+              </div>
+              <span>{{ userInfo.name }}</span>
+              <i class="fas fa-angle-down"></i>
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>
-                  <i class="fas fa-user-circle"></i> 个人信息
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <i class="fas fa-edit"></i> 修改密码
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <i class="fas fa-sign-out-alt"></i> 退出登录
-                </el-dropdown-item>
+                <el-dropdown-item @click="navigateToProfile">个人信息</el-dropdown-item>
+                <el-dropdown-item>账号设置</el-dropdown-item>
+                <el-dropdown-item>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <div class="notification">
-            <i class="fas fa-bell"></i>
-            <span class="badge">3</span>
-          </div>
         </div>
-      </div>
-
-      <!-- 标签页栏 -->
-      <div class="tabs-bar">
-        <el-tabs v-model="activeTab" @tab-click="handleTabClick" type="card" closable @tab-remove="removeTab">
-          <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.title" :name="tab.name"></el-tab-pane>
-        </el-tabs>
       </div>
 
       <!-- 页面内容 -->
@@ -167,435 +167,574 @@ import { useRoute, useRouter } from 'vue-router';
 
 // 侧边栏搜索
 const searchMenu = ref('');
+const searchKeyword = ref('');
+
+// 用户信息
+const userInfo = ref({
+  name: '默认用户',
+  avatar: '' // 空字符串表示没有头像
+});
+
+// 获取用户名首字母
+const userInitial = computed(() => {
+  if (userInfo.value.name) {
+    return userInfo.value.name.charAt(0);
+  }
+  return '';
+});
+
+// 判断是否有头像
+const hasAvatar = computed(() => {
+  return !!userInfo.value.avatar;
+});
 
 // 路由相关
 const route = useRoute();
 const router = useRouter();
+
+// 跳转到个人资料页面
+const navigateToProfile = () => {
+  router.push('/user/profile');
+};
 
 // 当前激活的菜单项
 const activeMenu = computed(() => {
   return route.meta.activeMenu || route.name;
 });
 
-// 标签页管理
-const activeTab = ref('');
-const tabs = ref([{ title: '仪表板', name: 'dashboard' }]);
-
-// 添加标签页
-const addTab = (name, title) => {
-  if (!tabs.value.some(tab => tab.name === name)) {
-    tabs.value.push({ title, name });
-  }
-  activeTab.value = name;
-};
-
-// 监听路由变化，添加新标签页
-watch(
-  () => route.name,
-  newVal => {
-    if (newVal) {
-      activeTab.value = newVal;
-      const title = route.meta && route.meta.title ? route.meta.title : newVal;
-      addTab(newVal, title);
-    }
-  },
-  { immediate: true }
-);
-
-// 处理标签页点击
-const handleTabClick = tab => {
-  if (tab && tab.props && tab.props.name) {
-    router.push({ name: tab.props.name });
-  }
-};
-
-// 移除标签页
-const removeTab = targetName => {
-  const tabsVal = tabs.value;
-  let activeName = activeTab.value;
-
-  if (activeName === targetName) {
-    tabsVal.forEach((tab, index) => {
-      if (tab.name === targetName) {
-        const nextTab = tabsVal[index + 1] || tabsVal[index - 1];
-        if (nextTab) {
-          activeName = nextTab.name;
-        }
-      }
-    });
-  }
-
-  activeTab.value = activeName;
-  tabs.value = tabsVal.filter(tab => tab.name !== targetName);
-
-  // 确保activeName存在且有效，再进行路由导航
-  if (activeName && tabs.value.some(tab => tab.name === activeName)) {
-    router.push({ name: activeName });
-  } else if (tabs.value.length > 0) {
-    // 如果当前活动标签不存在，但还有其他标签，选择第一个
-    activeTab.value = tabs.value[0].name;
-    router.push({ name: tabs.value[0].name });
-  } else {
-    // 如果没有标签了，默认导航到仪表板
-    router.push({ name: 'dashboard' });
-  }
-};
-
-// 处理菜单选择
-const handleSelect = key => {
-  router.push({ name: key });
-};
-
-// 侧边栏状态
+// 侧边栏折叠状态
 const isCollapsed = ref(false);
 const isMobileOpen = ref(false);
 
-// 切换侧边栏
+// 切换侧边栏折叠状态
 const toggleSidebar = () => {
-  if (window.innerWidth < 768) {
-    isMobileOpen.value = !isMobileOpen.value;
-  } else {
-    isCollapsed.value = !isCollapsed.value;
+  isCollapsed.value = !isCollapsed.value;
+};
+
+// 移动端菜单状态管理
+const isMobile = ref(false);
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768;
+  if (isMobile.value) {
+    isCollapsed.value = true;
   }
 };
 
-// 监听窗口大小变化
-const handleResize = () => {
-  if (window.innerWidth < 768) {
-    isCollapsed.value = false;
-  }
-  isMobileOpen.value = false;
-};
-
-// 在组件挂载时添加事件监听
+// 初始化和销毁时处理窗口大小变化
 onMounted(() => {
-  window.addEventListener('resize', handleResize);
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
 });
 
-// 在组件卸载时移除事件监听
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize);
+  window.removeEventListener('resize', checkMobile);
 });
+
+// 处理菜单项选择
+const handleSelect = (index) => {
+  // 如果是移动端，点击菜单后自动收起侧边栏
+  if (isMobile.value) {
+    isMobileOpen.value = false;
+  }
+};
 </script>
 
 <style scoped>
 .admin-layout {
   display: flex;
   height: 100vh;
-  width: 100%;
   overflow: hidden;
+  background-color: #f8f8f8;
 }
 
+/* 侧边栏样式 */
 .sidebar {
-  width: 250px;
+  width: 260px;
   height: 100%;
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-right: 1px solid var(--border-color);
-  transition: var(--transition);
-  overflow-y: auto;
-  overflow-x: hidden;
-  flex-shrink: 0;
-  z-index: 10;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
 }
 
 .sidebar.is-collapsed {
   width: 64px;
 }
 
+.sidebar.is-collapsed .logo-container {
+  justify-content: center;
+  padding: 0;
+  height: 60px;
+}
+
+.sidebar.is-collapsed .sidebar-logo {
+  margin-right: 0;
+}
+
 .logo-container {
+  height: 60px;
   display: flex;
   align-items: center;
-  height: 60px;
-  padding: 0 var(--spacing-base);
-  border-bottom: 1px solid var(--border-color);
+  justify-content: center;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  background-color: #fff;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-logo {
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+  border-radius: 4px;
+}
+
+.collapse-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.collapse-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: #666;
+  font-size: 16px;
+}
+
+.sidebar.is-collapsed .collapse-button-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .logo {
-  color: var(--dark-color);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  margin: 0;
-  overflow: hidden;
+  color: #333;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
+  margin: 0;
 }
 
 .menu-search {
-  padding: var(--spacing-small) var(--spacing-base);
-  margin-bottom: var(--spacing-small);
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.search-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  background-color: #fbfbfb;
+}
+
+.menu-search :deep(.el-input__wrapper) {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  padding: 0 10px;
+}
+
+.menu-search :deep(.el-input) {
+  font-size: 14px;
 }
 
 .menu-search :deep(.el-input__inner) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: transparent;
   border: none;
-  color: var(--dark-color);
-  border-radius: var(--border-radius-base);
-}
-
-.menu-search :deep(.el-input__prefix) {
-  color: var(--dark-color);
+  color: #333;
+  height: 40px;
+  font-size: 14px;
 }
 
 .menu-search :deep(.el-input__inner::placeholder) {
-  color: var(--gray-color);
+  color: #999;
+  font-size: 14px;
+}
+
+.menu-search :deep(.el-input__prefix) {
+  color: #999;
+  margin-right: 5px;
+}
+
+.menu-search :deep(.el-input__suffix) {
+  right: 5px;
+}
+
+.menu-search :deep(.el-input__clear) {
+  color: #999;
+  margin-right: 0;
+}
+
+.search-icon {
+  color: #999;
+  font-size: 16px;
 }
 
 .el-menu-vertical {
+  flex: 1;
   border-right: none;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 5px 0;
+}
+
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 100%;
+}
+
+/* 定制侧边栏菜单项样式 */
+:deep(.el-menu) {
   background-color: transparent;
+  border-right: none;
 }
 
-.el-menu-vertical :deep(.el-menu-item), 
-.el-menu-vertical :deep(.el-sub-menu__title) {
-  height: 45px;
-  line-height: 45px;
-  color: var(--dark-color);
-  transition: var(--transition);
-  margin: 0 10px;
-  border-radius: 8px;
+:deep(.el-menu-item) {
+  color: #333;
+  height: 48px;
+  font-size: 14px;
+  padding: 0 15px !important;
+  margin: 5px 10px;
+  border-radius: 6px;
+  transition: all 0.3s;
+  line-height: 48px;
 }
 
-.el-menu-vertical :deep(.el-menu-item.is-active) {
-  background-color: var(--primary-color);
-  color: white;
+:deep(.el-menu-item.is-active) {
+  background-color: #0071e3;
+  color: #ffffff;
   font-weight: 500;
-  border-left: none;
+  border-radius: 6px;
 }
 
-.el-menu-vertical :deep(.el-menu-item:hover), 
-.el-menu-vertical :deep(.el-sub-menu__title:hover) {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: var(--dark-color);
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  flex-shrink: 0;
 }
 
-.el-menu-vertical :deep(.el-menu-item i), 
-.el-menu-vertical :deep(.el-sub-menu__title i) {
-  margin-right: var(--spacing-small);
-  color: inherit;
+.first-menu-item:deep(.is-active) {
+  background-color: #0071e3;
 }
 
+:deep(.el-menu-item:hover:not(.is-active)) {
+  background-color: #0071e3;
+  color: #ffffff;
+  border-radius: 6px;
+}
+
+:deep(.el-menu-item:hover:not(.is-active)) .icon-container {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+:deep(.el-menu-item:hover:not(.is-active)) .menu-icon {
+  color: #ffffff;
+}
+
+.menu-icon {
+  color: #666;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:deep(.el-menu-item.is-active) .icon-container {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+:deep(.el-menu-item.is-active) .menu-icon {
+  color: #ffffff;
+}
+
+/* 主内容区样式 */
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--bg-color);
-  transition: margin-left var(--transition-time);
 }
 
+/* 顶部导航栏样式 */
 .nav-bar {
-  height: 70px;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  background: var(--header-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 0;
+  z-index: 99;
 }
 
-.toggle-sidebar {
-  font-size: 18px;
-  cursor: pointer;
-  color: var(--dark-color);
-  margin-right: var(--spacing-base);
-  transition: color var(--transition-time);
+.nav-bar .left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 0;
+  padding-left: 20px;
 }
 
-.toggle-sidebar:hover {
-  color: var(--primary-color);
+.nav-bar .center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.top-search-wrapper {
+  width: 280px;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  background-color: #f5f7fa;
+  transition: all 0.2s;
+}
+
+.top-search-wrapper:focus-within {
+  border-color: #409eff;
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-input :deep(.el-input__wrapper) {
+  background-color: transparent;
+  box-shadow: none !important;
+  padding: 0 10px;
+}
+
+.search-input :deep(.el-input__inner) {
+  height: 36px;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.search-input :deep(.el-input__prefix) {
+  color: #909399;
 }
 
 .nav-bar .right {
   display: flex;
   align-items: center;
+  padding-right: 20px;
+}
+
+.notification {
+  margin-right: 15px;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.divider {
+  height: 24px;
+  width: 1px;
+  background-color: #e0e0e0;
+  margin: 0 15px 0 0;
+}
+
+.notification-badge :deep(.el-badge__content) {
+  top: 2px;
+  right: 12px;
+  font-size: 12px;
+  border: 1px solid white;
+  padding: 0 5px;
+  height: 18px;
+  line-height: 16px;
+  border-radius: 10px;
 }
 
 .user-profile {
   display: flex;
   align-items: center;
-  padding: 8px 15px;
-  border-radius: 25px;
   cursor: pointer;
-  transition: var(--transition);
-  background-color: rgba(0, 0, 0, 0.05);
+  padding-right: 0;
+  border: none !important;
+  outline: none !important;
 }
 
-.user-profile i {
-  font-size: 16px;
-  margin-right: 8px;
+.user-profile:hover, 
+.user-profile:focus, 
+.user-profile:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .user-profile span {
-  font-size: 14px;
-  font-weight: 500;
+  margin-right: 8px;
 }
 
-.user-profile:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+/* 覆盖element-plus下拉菜单的默认样式 */
+:deep(.el-dropdown) {
+  outline: none !important;
 }
 
-.notification {
-  position: relative;
-  margin-left: 15px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
+:deep(.el-dropdown:focus-visible) {
+  outline: none !important;
 }
 
-.notification i {
-  font-size: 16px;
-  color: var(--dark-color);
+:deep(.el-dropdown:hover) {
+  border: none !important;
+  outline: none !important;
 }
 
-.notification:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+:deep(.el-dropdown:focus) {
+  outline: none !important;
 }
 
-.badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: var(--danger-color);
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+:deep(.el-dropdown:active) {
+  outline: none !important;
 }
 
-.tabs-bar {
-  padding: 5px 10px 0;
-  background-color: var(--card-bg-color);
-  border-bottom: 1px solid var(--border-color);
+/* 覆盖下拉菜单弹出框样式 */
+:deep(.el-popper.is-light) {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.tabs-bar :deep(.el-tabs__header) {
-  margin-bottom: 0;
-  border-bottom: none;
+/* 覆盖el-popper的箭头样式 */
+:deep(.el-popper__arrow) {
+  display: none !important;
 }
 
-.tabs-bar :deep(.el-tabs__nav) {
-  border: none;
-}
-
-.tabs-bar :deep(.el-tabs__item) {
+.avatar {
+  width: 36px;
   height: 36px;
-  line-height: 36px;
-  border: none;
-  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0;
-  transition: all var(--transition-time);
-  color: var(--text-regular);
-  font-size: 14px;
-  position: relative;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #e6f0fd;
 }
 
-.tabs-bar :deep(.el-tabs__item.is-active) {
-  background-color: var(--card-bg-color);
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
-  font-weight: 500;
-}
-
-.tabs-bar :deep(.el-tabs__item:not(.is-active):hover) {
-  color: var(--primary-hover);
-}
-
-.tabs-bar :deep(.el-tabs__nav-scroll) {
-  padding: 0 var(--spacing-base);
-}
-
-.tabs-bar :deep(.el-tabs__active-bar) {
-  display: none;
-}
-
-.tabs-bar :deep(.el-icon-close) {
-  height: 16px;
-  width: 16px;
-  line-height: 16px;
-  border-radius: var(--border-radius-circle);
-  transition: all var(--transition-time);
-  color: var(--text-secondary);
-}
-
-.tabs-bar :deep(.el-icon-close:hover) {
-  background-color: var(--danger-color);
-  color: var(--text-white);
-}
-
+/* 页面内容区样式 */
 .page-content {
   flex: 1;
-  padding: var(--spacing-large);
-  overflow-y: auto;
-  background-color: var(--bg-color);
+  overflow: auto;
+  padding: 0;
+  background-color: #f8f8f8;
 }
 
-/* 响应式样式 */
+/* 适配移动端 */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
-    z-index: 100;
     transform: translateX(-100%);
-    box-shadow: var(--shadow);
   }
   
   .sidebar.is-open {
     transform: translateX(0);
   }
   
-  .main-content {
-    margin-left: 0;
-  }
-  
-  .page-content {
-    padding: var(--spacing-base);
+  .top-search-wrapper {
+    width: 250px;
   }
 }
 
-.nav-bar .left {
+/* 折叠状态下整个菜单样式 */
+:deep(.el-menu--collapse) {
+  width: 64px;
+  padding: 5px 0;
+}
+
+/* 折叠状态下菜单项样式 */
+:deep(.el-menu--collapse) .el-menu-item {
+  padding: 0 !important;
+  height: 48px;
+  margin: 5px 0;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0;
+}
+
+/* 折叠状态下tooltip触发器样式 */
+:deep(.el-menu--collapse .el-tooltip__trigger) {
+  display: flex;
+  justify-content: center;
+  width: 64px;
+}
+
+/* 折叠状态下图标容器样式 */
+:deep(.el-menu--collapse) .icon-container {
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+}
+
+/* 确保普通状态是白色圆圈背景 */
+:deep(.el-menu--collapse) .el-menu-item .icon-container {
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.nav-bar .left .el-breadcrumb {
-  margin-left: var(--spacing-base);
+/* 悬停状态图标容器样式 */
+:deep(.el-menu--collapse) .el-menu-item:hover {
+  background-color: #0071e3;
+  color: #ffffff;
+  border-radius: 0;
 }
 
-.el-menu-vertical :deep(.el-sub-menu .el-menu-item) {
-  height: 40px !important;
-  line-height: 40px !important;
-  padding-left: 54px !important;
-  font-size: 13px;
-  border-radius: 8px;
-  margin: 0 10px;
+:deep(.el-menu--collapse) .el-menu-item:hover .icon-container {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.el-menu-vertical :deep(.el-sub-menu .el-menu-item.is-active) {
-  background-color: var(--primary-color);
+/* 折叠状态下活动项样式 */
+:deep(.el-menu--collapse) .is-active {
+  border-radius: 0;
+  width: 64px;
+  margin: 5px 0;
+  background-color: #0071e3;
+}
+
+/* 活动状态图标容器样式 */
+:deep(.el-menu--collapse) .is-active .icon-container {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 折叠状态下菜单图标样式 */
+:deep(.el-menu--collapse) .menu-icon {
+  margin-right: 0;
+  font-size: 18px;
+}
+
+.avatar-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #0071e3;
   color: white;
-  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
   font-weight: 500;
 }
 </style>

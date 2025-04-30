@@ -1,7 +1,7 @@
 <template>
   <div class="card stat-card">
     <div class="card-icon" :class="color + '-bg'">
-      <i :class="iconClass"></i>
+      <el-icon :size="24"><component :is="icon" /></el-icon>
     </div>
     <div class="card-info">
       <h3>{{ title }}</h3>
@@ -24,7 +24,7 @@ const props = defineProps({
   },
   icon: {
     type: String,
-    default: 'tachometer-alt'
+    default: 'Odometer'
   },
   color: {
     type: String,
@@ -42,19 +42,18 @@ const iconClass = computed(() => {
 <style scoped>
 .card {
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   padding: 20px;
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
-  margin-bottom: 20px;
   height: 100%;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card {
@@ -62,23 +61,22 @@ const iconClass = computed(() => {
 }
 
 .card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 20px;
   color: #fff;
-  font-size: 20px;
 }
 
 .blue-bg {
-  background-color: #3a7afe;
+  background-color: #0077d9;
 }
 
 .green-bg {
-  background-color: #36c46e;
+  background-color: #4cd964;
 }
 
 .orange-bg {
@@ -86,11 +84,7 @@ const iconClass = computed(() => {
 }
 
 .purple-bg {
-  background-color: #af52de;
-}
-
-.red-bg {
-  background-color: #ff3b30;
+  background-color: #bf5af2;
 }
 
 .card-info {
@@ -105,7 +99,7 @@ const iconClass = computed(() => {
 }
 
 .card-info p {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
   color: #333;
   margin: 0;

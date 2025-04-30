@@ -2,13 +2,19 @@
   <div class="dashboard">
     <div class="section-header">
       <h2>仪表盘</h2>
-      <p>系统概览</p>
+      <div class="subtitle">系统概览</div>
     </div>
 
     <!-- 数据概览区块 -->
     <div class="stats-cards">
-      <div class="stats-card-wrapper" v-for="(card, index) in statsCards" :key="index">
-        <data-card :title="card.title" :value="card.value" :icon="card.icon" :color="card.color" />
+      <div class="card stat-card" v-for="(stat, index) in statsCards" :key="index">
+        <div class="stat-icon-container" :class="stat.bgColor">
+          <i :class="stat.icon"></i>
+        </div>
+        <div class="card-info">
+          <h3>{{ stat.title }}</h3>
+          <p>{{ stat.value }}</p>
+        </div>
       </div>
     </div>
 
@@ -17,18 +23,18 @@
       <div class="card visits-trend-card">
         <div class="card-header">
           <h3>访问趋势</h3>
-        </div>
-        <div class="chart-period-tabs">
-          <el-radio-group v-model="chartTimeRange" size="small" @change="drawChart">
-            <el-radio-button value="week">本周</el-radio-button>
-            <el-radio-button value="month">本月</el-radio-button>
-            <el-radio-button value="year">本年</el-radio-button>
-          </el-radio-group>
+          <div class="chart-period-tabs">
+            <el-radio-group v-model="chartTimeRange" size="small" @change="drawChart">
+              <el-radio-button label="week">本周</el-radio-button>
+              <el-radio-button label="month">本月</el-radio-button>
+              <el-radio-button label="year">本年</el-radio-button>
+            </el-radio-group>
+          </div>
         </div>
         <div class="chart-container">
           <div class="chart-legends">
             <div class="chart-legend">
-              <span class="chart-legend-color" style="background-color: #3a7afe;"></span>
+              <span class="chart-legend-color" style="background-color: #0071e3;"></span>
               <span class="chart-legend-text">网站访问量</span>
             </div>
             <div class="chart-legend">
@@ -36,11 +42,11 @@
               <span class="chart-legend-text">移动端访问量</span>
             </div>
             <div class="chart-legend">
-              <span class="chart-legend-color" style="background-color: #36c46e;"></span>
+              <span class="chart-legend-color" style="background-color: #34c759;"></span>
               <span class="chart-legend-text">API调用量</span>
             </div>
           </div>
-          <div id="traffic-chart" style="width:100%; height:240px;"></div>
+          <div id="traffic-chart" style="width:100%; height:280px;"></div>
         </div>
       </div>
       
@@ -50,16 +56,17 @@
           <a href="#" class="view-all">查看全部</a>
         </div>
         <div class="activity-list">
-          <el-timeline>
-            <el-timeline-item
-              v-for="(activity, index) in recentActivities"
-              :key="index"
-              :type="activity.type"
-              :color="activity.color"
-              :timestamp="activity.time">
-              {{ activity.content }}
-            </el-timeline-item>
-          </el-timeline>
+          <div class="timeline">
+            <div class="timeline-item" v-for="(activity, index) in recentActivities" :key="index">
+              <div class="timeline-dot" :style="{ backgroundColor: activity.color }">
+                <i class="fas fa-circle"></i>
+              </div>
+              <div class="timeline-content">
+                <p class="timeline-text">{{ activity.content }}</p>
+                <span class="timeline-time">{{ activity.time }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,26 +90,25 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import * as echarts from 'echarts';
-import DataCard from '@/components/dashboard/DataCard.vue';
 
 const chartTimeRange = ref('month');
 let myChart = null;
 
 // 统计卡片数据
 const statsCards = ref([
-  { title: '用户总数', value: '1,254', icon: 'users', color: 'blue' },
-  { title: '内容总数', value: '5,678', icon: 'file-alt', color: 'green' },
-  { title: '本月访问', value: '24,853', icon: 'eye', color: 'orange' },
-  { title: '本月收入', value: '¥15,245', icon: 'wallet', color: 'purple' }
+  { title: '用户总数', value: '1,254', icon: 'fas fa-users', bgColor: 'blue-bg' },
+  { title: '内容总数', value: '5,678', icon: 'fas fa-file-lines', bgColor: 'green-bg' },
+  { title: '本月访问', value: '24,853', icon: 'fas fa-eye', bgColor: 'orange-bg' },
+  { title: '本月收入', value: '¥15,245', icon: 'fas fa-money-bill-wave', bgColor: 'purple-bg' }
 ]);
 
-// 最新活动数据
+// 最近活动数据
 const recentActivities = ref([
-  { content: '新增了文章《iOS设计风格探讨》', time: '5分钟前', type: 'success', color: '#36c46e' },
-  { content: '新用户张小明注册了账号', time: '1小时前', type: 'primary', color: '#3a7afe' },
+  { content: '新增了文章《iOS设计风格探讨》', time: '5分钟前', type: 'success', color: '#34c759' },
+  { content: '新用户张小明注册了账号', time: '1小时前', type: 'primary', color: '#0071e3' },
   { content: '更新了系统设置', time: '3小时前', type: 'warning', color: '#ff9500' },
   { content: '系统检测到异常登录', time: '昨天', type: 'danger', color: '#ff3b30' },
-  { content: '更新了SEO设置', time: '2天前', type: '', color: '#af52de' }
+  { content: '更新了SEO设置', time: '更早', type: '', color: '#af52de' }
 ]);
 
 // 最新内容数据
@@ -120,18 +126,18 @@ const chartData = {
     series: [
       {
         name: '网站访问量',
-        data: [70, 65, 63, 62, 60, 68, 65],
-        color: '#3a7afe'
+        data: [800, 950, 1000, 980, 1100, 1300, 900],
+        color: '#0071e3'
       },
       {
         name: '移动端访问量',
-        data: [75, 70, 68, 70, 72, 75, 80],
+        data: [600, 700, 750, 780, 800, 950, 700],
         color: '#ff9500'
       },
       {
         name: 'API调用量',
-        data: [68, 75, 70, 68, 70, 75, 82],
-        color: '#36c46e'
+        data: [1500, 1700, 1800, 1750, 1900, 2100, 1600],
+        color: '#34c759'
       }
     ]
   },
@@ -140,18 +146,18 @@ const chartData = {
     series: [
       {
         name: '网站访问量',
-        data: [320, 332, 301, 334, 390, 330, 320, 350, 340, 360, 390, 420],
-        color: '#3a7afe'
+        data: [5000, 5200, 5100, 5300, 5800, 6000, 6100, 6050, 6200, 6300, 6350, 6500],
+        color: '#0071e3'
       },
       {
         name: '移动端访问量',
-        data: [120, 132, 101, 134, 90, 230, 210, 180, 190, 210, 230, 245],
+        data: [3000, 3100, 3050, 3200, 3500, 4100, 4000, 3900, 4050, 4200, 4300, 4400],
         color: '#ff9500'
       },
       {
         name: 'API调用量',
-        data: [220, 182, 191, 234, 290, 330, 310, 320, 315, 350, 370, 380],
-        color: '#36c46e'
+        data: [8000, 7800, 7900, 8200, 9000, 9200, 9300, 9250, 9500, 9800, 10000, 10200],
+        color: '#34c759'
       }
     ]
   },
@@ -160,18 +166,18 @@ const chartData = {
     series: [
       {
         name: '网站访问量',
-        data: [1100, 1290, 1330, 1320, 1500],
-        color: '#3a7afe'
+        data: [35000, 42000, 49000, 58000, 65000],
+        color: '#0071e3'
       },
       {
         name: '移动端访问量',
-        data: [980, 1090, 1130, 1120, 1200],
+        data: [25000, 32000, 39000, 45000, 52000],
         color: '#ff9500'
       },
       {
         name: 'API调用量',
-        data: [260, 290, 340, 390, 450],
-        color: '#36c46e'
+        data: [60000, 70000, 82000, 91000, 102000],
+        color: '#34c759'
       }
     ]
   }
@@ -212,7 +218,7 @@ function drawChart() {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
-        type: 'shadow',
+        type: 'line',
         label: {
           show: true
         }
@@ -222,6 +228,7 @@ function drawChart() {
       left: '3%',
       right: '4%',
       bottom: '3%',
+      top: '3%',
       containLabel: true
     },
     xAxis: {
@@ -261,14 +268,21 @@ function drawChart() {
       smooth: true,
       data: series.data,
       areaStyle: {
-        opacity: 0.1
+        opacity: 0.1,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: series.color },
+          { offset: 1, color: 'rgba(255, 255, 255, 0)' }
+        ])
       },
       lineStyle: {
-        width: 2
+        width: 2,
+        color: series.color
       },
       itemStyle: {
         color: series.color
-      }
+      },
+      symbol: 'circle',
+      symbolSize: 6
     }))
   };
   
@@ -284,119 +298,319 @@ function hexToRgba(hex, opacity) {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+// 颜色变量
+$primary-color: #0071e3;
+$secondary-color: #34c759;
+$danger-color: #ff3b30;
+$warning-color: #ff9500;
+$info-color: #5ac8fa;
+$dark-color: #1c1c1e;
+$light-color: #f5f5f7;
+$gray-color: #86868b;
+$border-color: #d2d2d7;
+$card-bg: rgba(255, 255, 255, 0.8);
+
+// 混合器(Mixins)
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin responsive-grid($columns) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: 20px;
+}
+
+// 主容器样式
 .dashboard {
   padding: 20px;
-}
+  background-color: $light-color;
+  min-height: calc(100vh - 60px);
 
-.section-header {
-  margin-bottom: 24px;
-}
+  // 标题部分
+  .section-header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 0 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-.section-header h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: $dark-color;
+      margin: 0;
+    }
 
-.section-header p {
-  font-size: 14px;
-  color: #888;
-  margin: 0;
-}
-
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.grid-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.card-header h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-.chart-period-tabs {
-  margin-bottom: 15px;
-}
-
-.chart-legends {
-  display: flex;
-  margin-bottom: 15px;
-}
-
-.chart-legend {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.chart-legend-color {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  margin-right: 8px;
-}
-
-.chart-legend-text {
-  font-size: 12px;
-  color: #666;
-}
-
-.view-all {
-  color: #3a7afe;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.view-all:hover {
-  text-decoration: underline;
-}
-
-/* 响应式调整 */
-@media (max-width: 1200px) {
-  .stats-cards {
-    grid-template-columns: repeat(2, 1fr);
+    .subtitle {
+      font-size: 14px;
+      color: $gray-color;
+    }
   }
-  
+
+  // 统计卡片区域
+  .stats-cards {
+    @include responsive-grid(4);
+    margin-bottom: 24px;
+
+    // 响应式调整
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // 图表和活动信息区域
   .grid-row {
-    grid-template-columns: 1fr;
-  }
-}
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
 
-@media (max-width: 768px) {
-  .stats-cards {
-    grid-template-columns: 1fr;
+    // 响应式调整
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // 卡片公共样式
+  .card {
+    background-color: $card-bg;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: $dark-color;
+        margin: 0;
+      }
+    }
+
+    // 内容卡片样式
+    &.content-card {
+      margin-bottom: 24px;
+    }
+  }
+
+  // 图表相关样式
+  .chart {
+    &-period-tabs {
+      margin-bottom: 15px;
+    }
+
+    &-legends {
+      display: flex;
+      margin-bottom: 15px;
+      padding-left: 20px;
+    }
+
+    &-legend {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+
+      &-color {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      &-text {
+        font-size: 12px;
+        color: $gray-color;
+      }
+    }
+  }
+
+  // 链接样式
+  .view-all {
+    color: $primary-color;
+    font-size: 14px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // 活动列表样式
+  .activity-list {
+    padding: 0 10px;
+    height: 310px;
+    overflow-y: auto;
+  }
+
+  // 时间线样式
+  .timeline {
+    position: relative;
+    padding-left: 15px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: #e6e6e6;
+    }
+
+    &-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+
+    &-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      font-size: 0;
+      line-height: 0;
+      @include flex-center;
+
+      i {
+        font-size: 6px;
+        color: white;
+      }
+    }
+
+    &-content {
+      position: relative;
+    }
+
+    &-text {
+      margin: 0 0 5px;
+      font-size: 14px;
+      color: $dark-color;
+    }
+
+    &-time {
+      font-size: 12px;
+      color: $gray-color;
+    }
+  }
+
+  // 统计卡片样式
+  .stat-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+
+    .stat-icon-container {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      @include flex-center;
+      margin-right: 20px;
+      color: white;
+      font-size: 28px;
+
+      &.blue-bg {
+        background-color: $primary-color;
+      }
+
+      &.green-bg {
+        background-color: $secondary-color;
+      }
+
+      &.orange-bg {
+        background-color: $warning-color;
+      }
+
+      &.purple-bg {
+        background-color: #af52de;
+      }
+    }
+
+    .card-info {
+      h3 {
+        font-size: 14px;
+        color: $gray-color;
+        margin-bottom: 8px;
+        font-weight: normal;
+      }
+
+      p {
+        font-size: 26px;
+        font-weight: 600;
+        color: $dark-color;
+        margin: 0;
+      }
+    }
+  }
+
+  // 自定义Element Plus样式
+  :deep(.el-timeline-item__node) {
+    top: 4px;
+  }
+
+  :deep(.el-timeline-item__content) {
+    font-size: 14px;
+    color: $dark-color;
+  }
+
+  :deep(.el-timeline-item__timestamp) {
+    color: $gray-color;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  :deep(.el-radio-group) {
+    border-radius: 4px;
+  }
+
+  :deep(.el-radio-button__inner) {
+    background-color: #f0f2f5;
+    border-color: #dcdfe6;
+    color: $gray-color;
+    border-radius: 4px;
+    margin: 0 2px;
+    padding: 5px 15px;
+    font-size: 12px;
+    height: 28px;
+  }
+
+  :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    box-shadow: none;
+  }
+
+  :deep(.el-table) {
+    --el-table-border-color: $border-color;
+    --el-table-header-bg-color: #f8f8fa;
+    --el-table-row-hover-bg-color: #f5f7fa;
+
+    th {
+      font-weight: 600;
+      color: $dark-color;
+      background-color: #f8f8fa;
+    }
   }
 }
 </style>

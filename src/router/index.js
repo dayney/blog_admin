@@ -40,6 +40,16 @@ const router = createRouter({
             activeMenu: 'dashboard'
           }
         },
+        // 用户相关路由
+        {
+          path: 'user/profile',
+          name: 'user-profile',
+          component: () => import('../views/user/Profile.vue'),
+          meta: {
+            title: '个人资料',
+            activeMenu: 'user'
+          }
+        },
         // 系统设置路由
         {
           path: 'settings/website',
