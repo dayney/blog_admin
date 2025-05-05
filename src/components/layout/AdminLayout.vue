@@ -60,7 +60,7 @@
           <template #title>媒体管理</template>
         </el-menu-item>
         
-        <el-menu-item index="/user">
+        <el-menu-item index="/user/manage">
           <div class="icon-container">
             <i class="fas fa-user-friends menu-icon"></i>
           </div>
@@ -145,7 +145,7 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item @click="navigateToProfile">个人信息</el-dropdown-item>
-                <el-dropdown-item>账号设置</el-dropdown-item>
+                <el-dropdown-item @click="navigateToAccountSettings">账号设置</el-dropdown-item>
                 <el-dropdown-item>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -195,6 +195,11 @@ const router = useRouter();
 // 跳转到个人资料页面
 const navigateToProfile = () => {
   router.push('/user/profile');
+};
+
+// 跳转到账号设置页面
+const navigateToAccountSettings = () => {
+  router.push('/account-settings');
 };
 
 // 当前激活的菜单项

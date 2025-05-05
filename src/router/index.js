@@ -50,6 +50,16 @@ const router = createRouter({
             activeMenu: 'user'
           }
         },
+        // 账号设置路由
+        {
+          path: 'account-settings',
+          name: 'account-settings',
+          component: () => import('../views/AccountSettings/index.vue'),
+          meta: {
+            title: '账号设置',
+            activeMenu: 'user'
+          }
+        },
         // 系统设置路由
         {
           path: 'settings/website',
@@ -104,6 +114,15 @@ const router = createRouter({
           meta: {
             title: '短信设置',
             activeMenu: 'system-sms'
+          }
+        },
+        {
+          path: 'user/manage',
+          name: 'user-manage',
+          component: () => import('../views/user/UserManage.vue'),
+          meta: {
+            title: '用户管理',
+            activeMenu: 'user-manage'
           }
         }
       ]
