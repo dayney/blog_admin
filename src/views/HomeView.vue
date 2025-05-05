@@ -11,21 +11,23 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 .home {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f7fa;
+  background-color: $bg-color;
 }
 
 .welcome-section {
   text-align: center;
   padding: 40px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: $bg-color;
+  border-radius: $border-radius-base;
+  box-shadow: $box-shadow-base;
   max-width: 500px;
   width: 100%;
 }
@@ -34,12 +36,12 @@
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #303133;
+  color: $text-primary;
 }
 
 .subtitle {
   font-size: 16px;
-  color: #606266;
+  color: $text-secondary;
   margin-bottom: 30px;
 }
 
@@ -55,32 +57,32 @@
   align-items: center;
   justify-content: center;
   padding: 12px 20px;
-  border-radius: 4px;
+  border-radius: $border-radius-small;
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all $transition-time;
 }
 
 .enter-btn {
-  background-color: #409eff;
-  color: white;
-}
-
-.enter-btn:hover {
-  background-color: #66b1ff;
+  background-color: $primary-color;
+  color: $text-white;
+  
+  &:hover {
+    background-color: $primary-color-light;
+  }
 }
 
 .login-btn {
-  border: 1px solid #dcdfe6;
-  color: #606266;
-  background-color: white;
-}
-
-.login-btn:hover {
-  border-color: #c6e2ff;
-  color: #409eff;
-  background-color: #ecf5ff;
+  border: 1px solid $border-color-base;
+  color: $text-secondary;
+  background-color: $bg-color;
+  
+  &:hover {
+    border-color: $primary-color-lighter;
+    color: $primary-color;
+    background-color: $hover-bg-color;
+  }
 }
 
 .enter-btn i,

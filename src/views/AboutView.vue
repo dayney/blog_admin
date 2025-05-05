@@ -4,7 +4,17 @@
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
+.about {
+  padding: 20px;
+  
+  h1 {
+    color: $text-primary;
+  }
+}
+
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

@@ -298,7 +298,9 @@ const resetForm = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 .website-settings {
   padding: 20px;
 }
@@ -307,60 +309,84 @@ const resetForm = () => {
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 24px;
+  color: $text-primary;
 }
 
 .form-actions {
   margin-top: 30px;
   text-align: center;
+  
+  .el-button {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
 }
 
-.avatar-uploader {
+.logo-upload-box {
   width: 200px;
-  height: 60px;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  height: 100px;
+  border: 1px dashed $border-color-base;
+  border-radius: $border-radius-small;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.avatar-uploader:hover {
-  border-color: #409EFF;
-}
-
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 200px;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-}
-
-.avatar-uploader-icon.small {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-}
-
-.avatar {
-  width: 200px;
-  height: 60px;
-  display: block;
-}
-
-.avatar-small {
-  width: 32px;
-  height: 32px;
-  display: block;
+  cursor: pointer;
+  overflow: hidden;
+  
+  &:hover {
+    border-color: $primary-color;
+  }
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 .upload-tip {
+  color: $text-regular;
   font-size: 12px;
-  color: #909399;
   margin-top: 5px;
+}
+
+.favicon-upload-box {
+  width: 48px;
+  height: 48px;
+  border: 1px dashed $border-color-base;
+  border-radius: $border-radius-small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  
+  &:hover {
+    border-color: $primary-color;
+  }
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+:deep(.el-tabs__nav) {
+  background-color: $bg-color;
+}
+
+:deep(.el-tabs__item) {
+  color: $text-secondary;
+  
+  &.is-active {
+    color: $primary-color;
+  }
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+:deep(.el-form-item__label) {
+  color: $text-primary;
 }
 </style> 

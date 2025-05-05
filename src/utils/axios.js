@@ -20,9 +20,7 @@ const service = axios.create({
 const pendingRequests = new Map();
 
 // 请求重试相关
-const retryTimes = httpConfig.retryTimes;
-const retryDelay = httpConfig.retryDelay;
-
+const { retryTimes, retryDelay } = httpConfig;
 // 生成请求标识
 const generateRequestKey = config => {
   const { url, method, params, data } = config;

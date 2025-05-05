@@ -299,17 +299,7 @@ function hexToRgba(hex, opacity) {
 </script>
 
 <style lang="scss">
-// 颜色变量
-$primary-color: #0071e3;
-$secondary-color: #34c759;
-$danger-color: #ff3b30;
-$warning-color: #ff9500;
-$info-color: #5ac8fa;
-$dark-color: #1c1c1e;
-$light-color: #f5f5f7;
-$gray-color: #86868b;
-$border-color: #d2d2d7;
-$card-bg: rgba(255, 255, 255, 0.8);
+@import '@/assets/variables.scss';
 
 // 混合器(Mixins)
 @mixin flex-center {
@@ -327,13 +317,13 @@ $card-bg: rgba(255, 255, 255, 0.8);
 // 主容器样式
 .dashboard {
   padding: 20px;
-  background-color: $light-color;
+  background-color: $bg-color;
   min-height: calc(100vh - 60px);
 
   // 标题部分
   .section-header {
     margin-bottom: 24px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $border-color-lighter;
     padding: 20px 0 12px 0;
     display: flex;
     align-items: center;
@@ -342,13 +332,13 @@ $card-bg: rgba(255, 255, 255, 0.8);
     h2 {
       font-size: 24px;
       font-weight: 600;
-      color: $dark-color;
+      color: $text-primary;
       margin: 0;
     }
 
     .subtitle {
       font-size: 14px;
-      color: $gray-color;
+      color: $text-secondary;
     }
   }
 
@@ -382,11 +372,11 @@ $card-bg: rgba(255, 255, 255, 0.8);
 
   // 卡片公共样式
   .card {
-    background-color: $card-bg;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    background-color: $bg-color;
+    border-radius: $border-radius-base;
+    box-shadow: $box-shadow-base;
     padding: 20px;
-    transition: all 0.3s ease;
+    transition: all $transition-time;
 
     &-header {
       display: flex;
@@ -397,7 +387,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
       h3 {
         font-size: 18px;
         font-weight: 600;
-        color: $dark-color;
+        color: $text-primary;
         margin: 0;
       }
     }
@@ -434,7 +424,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
 
       &-text {
         font-size: 12px;
-        color: $gray-color;
+        color: $text-secondary;
       }
     }
   }
@@ -469,7 +459,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
       top: 0;
       bottom: 0;
       width: 1px;
-      background-color: #e6e6e6;
+      background-color: $border-color-lighter;
     }
 
     &-item {
@@ -484,14 +474,14 @@ $card-bg: rgba(255, 255, 255, 0.8);
       top: 0;
       width: 12px;
       height: 12px;
-      border-radius: 50%;
+      border-radius: $border-radius-circle;
       font-size: 0;
       line-height: 0;
       @include flex-center;
 
       i {
         font-size: 6px;
-        color: white;
+        color: $text-white;
       }
     }
 
@@ -502,12 +492,12 @@ $card-bg: rgba(255, 255, 255, 0.8);
     &-text {
       margin: 0 0 5px;
       font-size: 14px;
-      color: $dark-color;
+      color: $text-primary;
     }
 
     &-time {
       font-size: 12px;
-      color: $gray-color;
+      color: $text-secondary;
     }
   }
 
@@ -515,9 +505,9 @@ $card-bg: rgba(255, 255, 255, 0.8);
   .stat-card {
     display: flex;
     align-items: center;
-    background-color: white;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
+    background-color: $bg-color;
+    box-shadow: $box-shadow-light;
+    border-radius: $border-radius-base;
     padding: 20px;
 
     .stat-icon-container {
@@ -526,7 +516,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
       border-radius: 10px;
       @include flex-center;
       margin-right: 20px;
-      color: white;
+      color: $text-white;
       font-size: 28px;
 
       &.blue-bg {
@@ -534,7 +524,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
       }
 
       &.green-bg {
-        background-color: $secondary-color;
+        background-color: $success-color;
       }
 
       &.orange-bg {
@@ -542,14 +532,14 @@ $card-bg: rgba(255, 255, 255, 0.8);
       }
 
       &.purple-bg {
-        background-color: #af52de;
+        background-color: $info-color;
       }
     }
 
     .card-info {
       h3 {
         font-size: 14px;
-        color: $gray-color;
+        color: $text-secondary;
         margin-bottom: 8px;
         font-weight: normal;
       }
@@ -557,7 +547,7 @@ $card-bg: rgba(255, 255, 255, 0.8);
       p {
         font-size: 26px;
         font-weight: 600;
-        color: $dark-color;
+        color: $text-primary;
         margin: 0;
       }
     }
@@ -570,24 +560,24 @@ $card-bg: rgba(255, 255, 255, 0.8);
 
   :deep(.el-timeline-item__content) {
     font-size: 14px;
-    color: $dark-color;
+    color: $text-primary;
   }
 
   :deep(.el-timeline-item__timestamp) {
-    color: $gray-color;
+    color: $text-secondary;
     font-size: 12px;
     margin-top: 4px;
   }
 
   :deep(.el-radio-group) {
-    border-radius: 4px;
+    border-radius: $border-radius-small;
   }
 
   :deep(.el-radio-button__inner) {
-    background-color: #f0f2f5;
-    border-color: #dcdfe6;
-    color: $gray-color;
-    border-radius: 4px;
+    background-color: $hover-bg-color;
+    border-color: $border-color-base;
+    color: $text-secondary;
+    border-radius: $border-radius-small;
     margin: 0 2px;
     padding: 5px 15px;
     font-size: 12px;
@@ -597,19 +587,19 @@ $card-bg: rgba(255, 255, 255, 0.8);
   :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
     background-color: $primary-color;
     border-color: $primary-color;
-    color: #fff;
+    color: $text-white;
     box-shadow: none;
   }
 
   :deep(.el-table) {
-    --el-table-border-color: $border-color;
-    --el-table-header-bg-color: #f8f8fa;
-    --el-table-row-hover-bg-color: #f5f7fa;
+    --el-table-border-color: $border-color-base;
+    --el-table-header-bg-color: $hover-bg-color;
+    --el-table-row-hover-bg-color: $hover-bg-color;
 
     th {
       font-weight: 600;
-      color: $dark-color;
-      background-color: #f8f8fa;
+      color: $text-primary;
+      background-color: $hover-bg-color;
     }
   }
 }

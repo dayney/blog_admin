@@ -106,17 +106,19 @@ const resetUploader = () => {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import '@/assets/variables.scss';
+
 .avatar-upload-dialog {
-  border-radius: 4px;
+  border-radius: $border-radius-small;
   overflow: hidden;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow-light;
 }
 
 .avatar-dialog-header {
   padding: 15px 20px !important;
-  border-bottom: 1px solid #ebeef5 !important;
-  background-color: #f9f9f9 !important;
+  border-bottom: 1px solid $border-color-lighter !important;
+  background-color: $bg-color !important;
   margin-right: 0 !important;
 }
 
@@ -126,7 +128,7 @@ const resetUploader = () => {
 
 .avatar-dialog-footer {
   padding: 15px 20px !important;
-  border-top: 1px solid #ebeef5 !important;
+  border-top: 1px solid $border-color-lighter !important;
 }
 
 .dialog-header {
@@ -137,20 +139,20 @@ const resetUploader = () => {
 .header-icon {
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  background-color: #009944;
+  border-radius: $border-radius-circle;
+  background-color: $success-color;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 8px;
-  color: white;
+  color: $text-white;
   font-size: 14px;
 }
 
 .header-title {
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: $text-primary;
 }
 
 /* 调整关闭按钮位置和样式 */
@@ -158,10 +160,10 @@ const resetUploader = () => {
   top: 16px !important;
   right: 0 !important;
   height: 24px !important;
-}
-
-.el-dialog__headerbtn .el-dialog__close {
-  color: #909399 !important;
+  
+  .el-dialog__close {
+    color: $text-secondary !important;
+  }
 }
 
 .dialog-content {
@@ -176,20 +178,20 @@ const resetUploader = () => {
 .upload-box {
   width: 240px;
   height: 240px;
-  border: 1px dashed #d9d9d9;
+  border: 1px dashed $border-color-base;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   overflow: hidden;
-  background-color: #fafafa;
+  background-color: $hover-bg-color;
   position: relative;
   margin-right: 25px;
-  transition: border-color 0.3s;
-}
-
-.upload-box:hover {
-  border-color: #409EFF;
+  transition: border-color $transition-time;
+  
+  &:hover {
+    border-color: $primary-color;
+  }
 }
 
 .preview-area {
@@ -202,9 +204,9 @@ const resetUploader = () => {
 .preview-circle {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: $border-radius-circle;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: $hover-bg-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -213,7 +215,7 @@ const resetUploader = () => {
 
 .preview-label {
   margin-top: 10px;
-  color: #606266;
+  color: $text-secondary;
   font-size: 14px;
 }
 
@@ -222,7 +224,7 @@ const resetUploader = () => {
   bottom: 12px;
   width: 100%;
   text-align: center;
-  color: #409EFF;
+  color: $primary-color;
   font-size: 14px;
 }
 
@@ -257,13 +259,13 @@ const resetUploader = () => {
 }
 
 .confirm-btn {
-  background-color: #409EFF;
-  border-color: #409EFF;
+  background-color: $primary-color;
+  border-color: $primary-color;
   margin-right: 12px;
 }
 
 .cancel-btn {
-  border-color: #dcdfe6;
-  color: #606266;
+  border-color: $border-color-base;
+  color: $text-secondary;
 }
 </style> 

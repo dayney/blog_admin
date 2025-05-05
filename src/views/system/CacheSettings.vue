@@ -348,95 +348,137 @@ const resetForm = () => {
 };
 </script>
 
-<style scoped>
-.cache-settings {
-  padding: 20px;
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
+.cache-settings-container {
+  padding-bottom: 40px;
 }
 
-.page-title {
+.page-header {
   margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 24px;
+  
+  h2 {
+    margin: 0 0 8px 0;
+    color: $text-primary;
+    font-size: 24px;
+  }
 }
 
-.section-title {
-  margin: 20px 0;
-  font-weight: 600;
-  font-size: 18px;
+.description {
+  color: $text-secondary;
+  margin: 0 0 20px 0;
+  font-size: 14px;
 }
 
-.cache-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.cache-info {
-  display: flex;
-  align-items: flex-start;
+.settings-card {
   margin-bottom: 20px;
-  flex: 1;
+  border-radius: $border-radius-base;
+  
+  :deep(.el-card__header) {
+    padding: 15px 20px;
+    border-bottom: 1px solid $border-color-lighter;
+    background-color: $hover-bg-color;
+  }
 }
 
-.cache-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #f0f9ff;
-  color: #409EFF;
+.card-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-right: 15px;
-}
-
-.cache-content {
-  flex: 1;
-}
-
-.cache-content h3 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.cache-content p {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #606266;
-  font-size: 14px;
-}
-
-.cache-status, .cache-size {
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-.status-label, .size-label {
-  color: #909399;
-  margin-right: 5px;
-}
-
-.size-value {
-  font-weight: 600;
-  color: #606266;
-}
-
-.cache-actions {
-  display: flex;
   justify-content: space-between;
-  margin-top: auto;
+  
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-primary;
+  }
 }
 
-.unit-label {
-  margin-left: 10px;
-  color: #606266;
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.form-tip {
+  font-size: 12px;
+  color: $text-regular;
+  margin-top: 5px;
+  line-height: 1.4;
 }
 
 .form-actions {
   margin-top: 30px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  
+  .el-button {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
+}
+
+.stat-item {
+  margin-bottom: 15px;
+  border-bottom: 1px dashed $border-color-lighter;
+  padding-bottom: 10px;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: $text-secondary;
+    margin-bottom: 5px;
+  }
+  
+  .value {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-primary;
+  }
+}
+
+.cache-progress {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-top: 5px;
+  
+  .used {
+    color: $text-primary;
+  }
+  
+  .total {
+    color: $text-secondary;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+:deep(.el-form-item) {
+  margin-bottom: 22px;
+}
+
+:deep(.el-switch) {
+  margin-right: 10px;
 }
 </style> 

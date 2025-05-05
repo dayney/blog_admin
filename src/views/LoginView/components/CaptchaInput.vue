@@ -60,8 +60,9 @@ const handleRefresh = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
-@import '@/styles/mixins.scss';
+@use 'sass:math';
+@use '@/styles/variables.scss' as *;
+@use '@/styles/mixins.scss' as *;
 
 /* 验证码样式 */
 .captcha-container {

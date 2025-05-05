@@ -446,53 +446,60 @@ const resetForm = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 .storage-settings-container {
   padding-bottom: 40px;
 }
 
 .page-header {
   margin-bottom: 20px;
-}
-
-.page-header h2 {
-  margin: 0 0 8px 0;
-  color: #333;
-  font-size: 24px;
+  
+  h2 {
+    margin: 0 0 8px 0;
+    color: $text-primary;
+    font-size: 24px;
+  }
 }
 
 .description {
-  color: #666;
+  color: $text-secondary;
   margin: 0 0 20px 0;
   font-size: 14px;
 }
 
 .settings-card {
   margin-bottom: 20px;
-  border-radius: 8px;
-}
-
-.settings-card :deep(.el-card__header) {
-  padding: 15px 20px;
-  border-bottom: 1px solid #ebeef5;
-  background-color: #f8f9fa;
+  border-radius: $border-radius-base;
+  
+  :deep(.el-card__header) {
+    padding: 15px 20px;
+    border-bottom: 1px solid $border-color-lighter;
+    background-color: $hover-bg-color;
+  }
 }
 
 .card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-primary;
+  }
 }
 
-.card-header span {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
+.header-actions {
+  display: flex;
+  align-items: center;
 }
 
 .form-tip {
   font-size: 12px;
-  color: #909399;
+  color: $text-regular;
   margin-top: 5px;
   line-height: 1.4;
 }
@@ -501,11 +508,11 @@ const resetForm = () => {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-}
-
-.form-actions .el-button {
-  padding: 12px 25px;
-  font-size: 14px;
+  
+  .el-button {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
 }
 
 .size-input {
@@ -515,7 +522,7 @@ const resetForm = () => {
 
 .unit {
   margin-left: 10px;
-  color: #606266;
+  color: $text-secondary;
 }
 
 :deep(.el-form-item) {
@@ -529,13 +536,13 @@ const resetForm = () => {
 .test-result {
   margin-left: 10px;
   font-size: 14px;
-}
-
-.test-result.success {
-  color: #42b983;
-}
-
-.test-result.error {
-  color: #f56c6c;
+  
+  &.success {
+    color: $success-color;
+  }
+  
+  &.error {
+    color: $danger-color;
+  }
 }
 </style> 

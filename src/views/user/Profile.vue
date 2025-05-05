@@ -335,23 +335,25 @@ const toggleMoreInfo = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 .profile-outer-container {
-  background-color: #f0f2f5;
+  background-color: $bg-color;
   min-height: 100vh;
   padding: 20px;
 }
 
 .profile-container {
-  border-radius: 4px;
-  background-color: #fff;
+  border-radius: $border-radius-base;
+  background-color: $card-bg-color;
   margin: 0 auto;
   max-width: 1200px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow-base;
 }
 
 .profile-page {
-  background-color: #fff;
+  background-color: $card-bg-color;
   min-height: 100vh;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -359,12 +361,12 @@ const toggleMoreInfo = () => {
 
 /* 顶部用户信息栏 */
 .profile-header {
-  background-color: #f9f9f9;
+  background-color: $bg-color;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid $border-color-lighter;
 }
 
 .user-info {
@@ -422,11 +424,11 @@ const toggleMoreInfo = () => {
   color: #666;
   display: flex;
   align-items: center;
-}
-
-.user-login-info .divider {
-  margin: 0 8px;
-  color: #d9d9d9;
+  
+  .divider {
+    margin: 0 8px;
+    color: #d9d9d9;
+  }
 }
 
 .header-actions {
@@ -459,14 +461,14 @@ const toggleMoreInfo = () => {
   align-items: center;
   width: 18px;
   height: 18px;
-}
-
-.list-icon-line {
-  width: 14px;
-  height: 2px;
-  background-color: #999;
-  margin: 1.5px 0;
-  border-radius: 1px;
+  
+  &-line {
+    width: 14px;
+    height: 2px;
+    background-color: #999;
+    margin: 1.5px 0;
+    border-radius: 1px;
+  }
 }
 
 /* 导航标签样式 */
@@ -476,10 +478,10 @@ const toggleMoreInfo = () => {
   border-bottom: 1px solid #e8e8e8;
   overflow-x: auto;
   white-space: nowrap;
-}
-
-.nav-tabs::-webkit-scrollbar {
-  display: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .tab-item {
@@ -488,20 +490,20 @@ const toggleMoreInfo = () => {
   color: #666;
   cursor: pointer;
   position: relative;
-}
-
-.tab-item.active {
-  color: #1890ff;
-}
-
-.tab-item.active:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #1890ff;
+  
+  &.active {
+    color: #1890ff;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: #1890ff;
+    }
+  }
 }
 
 /* 主内容区域布局 */
@@ -509,16 +511,16 @@ const toggleMoreInfo = () => {
   display: flex;
   padding: 15px;
   position: relative;
-}
-
-.main-content:before {
-  content: '';
-  position: absolute;
-  left: 275px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: #e8e8e8;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    left: 275px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #e8e8e8;
+  }
 }
 
 /* 左侧边栏 */
@@ -583,11 +585,11 @@ const toggleMoreInfo = () => {
   cursor: pointer;
   margin: 0 6px;
   transition: all 0.3s;
-}
-
-.contact-icon-btn:hover {
-  border-color: #1890ff;
-  background-color: #e6f7ff;
+  
+  &:hover {
+    border-color: #1890ff;
+    background-color: #e6f7ff;
+  }
 }
 
 /* 聊天图标 */
@@ -597,18 +599,18 @@ const toggleMoreInfo = () => {
   border: 2px solid #1890ff;
   border-radius: 50%;
   position: relative;
-}
-
-.icon-chat:before {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  right: -2px;
-  width: 6px;
-  height: 6px;
-  background-color: #1890ff;
-  border-radius: 0 100% 0 0;
-  transform: rotate(45deg);
+  
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #1890ff;
+    border-radius: 0 100% 0 0;
+    transform: rotate(45deg);
+  }
 }
 
 /* 消息图标 */
@@ -627,17 +629,17 @@ const toggleMoreInfo = () => {
   border: 2px solid #1890ff;
   border-radius: 2px;
   position: relative;
-}
-
-.icon-mail:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  border-top: 6px solid #1890ff;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 6px solid #1890ff;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  }
 }
 
 /* 日历图标 */
@@ -647,26 +649,26 @@ const toggleMoreInfo = () => {
   border: 2px solid #1890ff;
   border-radius: 2px;
   position: relative;
-}
-
-.icon-calendar:before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 2px;
-  width: 2px;
-  height: 6px;
-  background-color: #1890ff;
-}
-
-.icon-calendar:after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  right: 2px;
-  width: 2px;
-  height: 6px;
-  background-color: #1890ff;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 2px;
+    width: 2px;
+    height: 6px;
+    background-color: #1890ff;
+  }
+  
+  &:after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    width: 2px;
+    height: 6px;
+    background-color: #1890ff;
+  }
 }
 
 .empty-circle {
@@ -695,24 +697,24 @@ const toggleMoreInfo = () => {
   height: 16px;
   margin: 0 auto;
   position: relative;
-}
-
-.arrow-icon:before {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-top: 1px solid #999;
-  border-right: 1px solid #999;
-  left: 4px;
-  top: 6px;
-  transform: rotate(-45deg);
-  transition: transform 0.3s;
-}
-
-.arrow-icon.is-expanded:before {
-  transform: rotate(135deg);
-  top: 4px;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    left: 4px;
+    top: 6px;
+    transform: rotate(-45deg);
+    transition: transform 0.3s;
+  }
+  
+  &.is-expanded:before {
+    transform: rotate(135deg);
+    top: 4px;
+  }
 }
 
 .more-info {
@@ -734,11 +736,11 @@ const toggleMoreInfo = () => {
 .meta-value {
   color: #333;
   flex: 1;
-}
-
-.meta-value.link {
-  color: #1890ff;
-  cursor: pointer;
+  
+  &.link {
+    color: #1890ff;
+    cursor: pointer;
+  }
 }
 
 /* 右侧内容区域 */
@@ -798,14 +800,14 @@ const toggleMoreInfo = () => {
   padding: 14px 20px;
   border-bottom: 1px solid #f0f0f0;
   align-items: center;
-}
-
-.info-item:first-child {
-  padding-top: 14px;
-}
-
-.info-item:last-child {
-  border-bottom: none;
+  
+  &:first-child {
+    padding-top: 14px;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .info-grid {
@@ -854,20 +856,22 @@ const toggleMoreInfo = () => {
   margin-right: 10px;
 }
 
-.edit-form .el-input,
-.edit-form .el-select {
-  width: 100%;
-}
+.edit-form {
+  .el-input,
+  .el-select {
+    width: 100%;
+  }
 
-.edit-form .info-item {
-  align-items: flex-start;
-}
+  .info-item {
+    align-items: flex-start;
+  }
 
-.edit-form .item-value {
-  padding-top: 0;
-}
+  .item-value {
+    padding-top: 0;
+  }
 
-.edit-form textarea {
-  font-family: inherit;
+  textarea {
+    font-family: inherit;
+  }
 }
 </style> 

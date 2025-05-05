@@ -479,7 +479,9 @@ const resetForm = () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 .seo-settings {
   padding: 20px;
 }
@@ -488,11 +490,17 @@ const resetForm = () => {
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 24px;
+  color: $text-primary;
 }
 
 .form-actions {
   margin-top: 30px;
   text-align: center;
+  
+  .el-button {
+    padding: 12px 25px;
+    font-size: 14px;
+  }
 }
 
 .table-header {
@@ -504,5 +512,31 @@ const resetForm = () => {
 .pagination {
   margin-top: 20px;
   justify-content: center;
+}
+
+.hint-text {
+  color: $text-secondary;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+:deep(.el-tabs__nav) {
+  background-color: $bg-color;
+}
+
+:deep(.el-tabs__item) {
+  color: $text-secondary;
+  
+  &.is-active {
+    color: $primary-color;
+  }
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+:deep(.el-form-item__label) {
+  color: $text-primary;
 }
 </style>

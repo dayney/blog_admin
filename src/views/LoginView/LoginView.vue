@@ -113,8 +113,9 @@ const switchTab = tab => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
-@import '@/styles/mixins.scss';
+@use 'sass:math';
+@use '@/assets/variables.scss' as *;
+@use '@/styles/mixins.scss' as *;
 
 .login-view {
   width: 100vw;
@@ -131,7 +132,7 @@ const switchTab = tab => {
 .auth-container {
   width: 100vw;
   height: 100vh;
-  background: $light-color;
+  background: $bg-color;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,15 +144,15 @@ const switchTab = tab => {
   width: 900px;
   height: 650px;
   background-color: #fff;
-  border-radius: $border-radius;
-  box-shadow: $shadow-lg;
+  border-radius: $border-radius-base;
+  box-shadow: $box-shadow-dark;
   overflow: hidden;
 }
 
 /* 左侧Logo部分 - 蓝色背景 */
 .logo-section {
   width: 50%;
-  background: $primary-color;
+  background: #0071e3; /* 使用蓝色背景 */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -237,7 +238,7 @@ const switchTab = tab => {
 .ai-inner {
   width: 110px;
   height: 110px;
-  background-color: rgba(25, 118, 210, 0.8); /* 匹配蓝色背景 */
+  background-color: rgba(0, 113, 227, 0.8); /* 匹配蓝色背景 */
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
   justify-content: center;
