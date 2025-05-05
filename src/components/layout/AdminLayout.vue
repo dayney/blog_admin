@@ -39,63 +39,63 @@
         active-text-color="#FFFFFF"
         :unique-opened="true"
       >
-        <el-menu-item index="dashboard" class="first-menu-item">
+        <el-menu-item index="/dashboard" class="first-menu-item">
           <div class="icon-container">
             <i class="fas fa-tachometer-alt menu-icon"></i>
           </div>
           <template #title>仪表盘</template>
         </el-menu-item>
         
-        <el-menu-item index="content">
+        <el-menu-item index="/content">
           <div class="icon-container">
             <i class="fas fa-file-alt menu-icon"></i>
           </div>
           <template #title>内容管理</template>
         </el-menu-item>
         
-        <el-menu-item index="media">
+        <el-menu-item index="/media">
           <div class="icon-container">
             <i class="fas fa-photo-video menu-icon"></i>
           </div>
           <template #title>媒体管理</template>
         </el-menu-item>
         
-        <el-menu-item index="user">
+        <el-menu-item index="/user">
           <div class="icon-container">
             <i class="fas fa-user-friends menu-icon"></i>
           </div>
           <template #title>用户管理</template>
         </el-menu-item>
         
-        <el-menu-item index="wechat">
+        <el-menu-item index="/wechat">
           <div class="icon-container">
             <i class="fab fa-weixin menu-icon"></i>
           </div>
           <template #title>微信管理</template>
         </el-menu-item>
         
-        <el-menu-item index="seo">
+        <el-menu-item index="/seo">
           <div class="icon-container">
             <i class="fas fa-search menu-icon"></i>
           </div>
           <template #title>SEO优化</template>
         </el-menu-item>
         
-        <el-menu-item index="prototype">
+        <el-menu-item index="/prototype">
           <div class="icon-container">
             <i class="fas fa-pencil-ruler menu-icon"></i>
           </div>
           <template #title>原型设计</template>
         </el-menu-item>
         
-        <el-menu-item index="page">
+        <el-menu-item index="/page">
           <div class="icon-container">
             <i class="fas fa-desktop menu-icon"></i>
           </div>
           <template #title>页面设计</template>
         </el-menu-item>
         
-        <el-menu-item index="system">
+        <el-menu-item index="/system">
           <div class="icon-container">
             <i class="fas fa-cog menu-icon"></i>
           </div>
@@ -232,6 +232,7 @@ onUnmounted(() => {
 
 // 处理菜单项选择
 const handleSelect = (index) => {
+  console.log('点击handleSelect', index);
   // 如果是移动端，点击菜单后自动收起侧边栏
   if (isMobile.value) {
     isMobileOpen.value = false;
