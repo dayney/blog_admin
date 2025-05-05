@@ -25,9 +25,9 @@
           <h3>访问趋势</h3>
           <div class="chart-period-tabs">
             <el-radio-group v-model="chartTimeRange" size="small" @change="drawChart">
-              <el-radio-button label="week">本周</el-radio-button>
-              <el-radio-button label="month">本月</el-radio-button>
-              <el-radio-button label="year">本年</el-radio-button>
+              <el-radio-button label="week" value="week">本周</el-radio-button>
+              <el-radio-button label="month" value="month">本月</el-radio-button>
+              <el-radio-button label="year" value="year">本年</el-radio-button>
             </el-radio-group>
           </div>
         </div>

@@ -15,11 +15,11 @@
       <el-form :model="serviceForm" label-width="140px" label-position="left">
         <el-form-item label="短信服务商">
           <el-radio-group v-model="serviceForm.provider" @change="handleProviderChange">
-            <el-radio label="aliyun">阿里云短信</el-radio>
-            <el-radio label="tencent">腾讯云短信</el-radio>
-            <el-radio label="huawei">华为云短信</el-radio>
-            <el-radio label="smschinese">短信宝</el-radio>
-            <el-radio label="custom">自定义接口</el-radio>
+            <el-radio label="aliyun" value="aliyun">阿里云短信</el-radio>
+            <el-radio label="tencent" value="tencent">腾讯云短信</el-radio>
+            <el-radio label="huawei" value="huawei">华为云短信</el-radio>
+            <el-radio label="smschinese" value="smschinese">短信宝</el-radio>
+            <el-radio label="custom" value="custom">自定义接口</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>

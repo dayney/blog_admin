@@ -15,11 +15,11 @@
       <el-form :model="settingsForm" label-width="140px" label-position="left">
         <el-form-item label="当前存储策略">
           <el-radio-group v-model="settingsForm.currentStorage" @change="handleStorageChange">
-            <el-radio label="local">本地存储</el-radio>
-            <el-radio label="oss">阿里云OSS</el-radio>
-            <el-radio label="cos">腾讯云COS</el-radio>
-            <el-radio label="qiniu">七牛云</el-radio>
-            <el-radio label="s3">AWS S3</el-radio>
+            <el-radio label="local" value="local">本地存储</el-radio>
+            <el-radio label="oss" value="oss">阿里云OSS</el-radio>
+            <el-radio label="cos" value="cos">腾讯云COS</el-radio>
+            <el-radio label="qiniu" value="qiniu">七牛云</el-radio>
+            <el-radio label="s3" value="s3">AWS S3</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>

@@ -40,10 +40,10 @@
 
         <el-form-item label="附件命名规则">
           <el-radio-group v-model="basicForm.namingRule">
-            <el-radio label="original">保持原始文件名</el-radio>
-            <el-radio label="date">日期格式</el-radio>
-            <el-radio label="random">随机字符串</el-radio>
-            <el-radio label="custom">自定义规则</el-radio>
+            <el-radio label="original" value="original">保持原始文件名</el-radio>
+            <el-radio label="date" value="date">日期格式</el-radio>
+            <el-radio label="random" value="random">随机字符串</el-radio>
+            <el-radio label="custom" value="custom">自定义规则</el-radio>
           </el-radio-group>
           <div class="form-tip">设置上传附件的命名规则</div>
         </el-form-item>
