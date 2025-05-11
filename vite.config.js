@@ -2,6 +2,9 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
+// 禁用Sass警告
+process.env.SASS_SILENT = true;
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
@@ -30,6 +33,40 @@ export default defineConfig(({ command, mode }) => {
       logLevel: 'info',
       // 设置为 false 可以避免 vite 清屏而错过在终端中打印某些关键信息
       clearScreen: true,
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // 全局引入变量和mixins
+          additionalData: `
+            @use "@/assets/scss/variables.scss" as *;
+            @use "@/assets/scss/mixins.scss" as *;
+          `,
+          // 使用新的JavaScript API
+          sassOptions: {
+            outputStyle: 'expanded',
+            sourceMap: true,
+            future: {
+              legacyJsApi: false
+            }
+          }
+        }
+      }
+    },
+    // 优化依赖项
+    optimizeDeps: {
+      include: ['echarts'],
+      exclude: []
+    },
+    // esbuild配置
+    esbuild: {
+      // 避免对某些模块进行处理
+      jsxFactory: 'h',
+      jsxFragment: 'Fragment',
+      // 忽略某些警告
+      supported: {
+        'top-level-await': true
+      }
     }
   };
 });

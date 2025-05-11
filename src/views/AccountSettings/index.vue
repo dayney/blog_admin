@@ -53,8 +53,8 @@ function goBack() {
 }
 </script>
 
-<style scoped lang="scss">
-@import '@/assets/variables.scss';
+<style lang="scss" scoped>
+@use '@/assets/scss/variables.scss' as *;
 .profile-outer-container {
   background-color: $bg-color;
   min-height: 100vh;

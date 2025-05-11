@@ -89,7 +89,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import * as echarts from 'echarts';
+import echarts from '@/utils/echarts';
 
 const chartTimeRange = ref('month');
 let myChart = null;
@@ -298,22 +298,10 @@ function hexToRgba(hex, opacity) {
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/variables.scss';
+<style lang="scss" scoped>
+@use '@/assets/scss/variables.scss' as *;
 
-// 混合器(Mixins)
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin responsive-grid($columns) {
-  display: grid;
-  grid-template-columns: repeat($columns, 1fr);
-  gap: 20px;
-}
-
+// 仪表盘模块样式
 // 主容器样式
 .dashboard {
   padding: 20px;
@@ -344,7 +332,9 @@ function hexToRgba(hex, opacity) {
 
   // 统计卡片区域
   .stats-cards {
-    @include responsive-grid(4);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     margin-bottom: 24px;
 
     // 响应式调整
@@ -354,6 +344,70 @@ function hexToRgba(hex, opacity) {
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+    }
+  }
+
+  // 统计卡片样式
+  .stat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 24px;
+    background-color: $card-bg-color;
+    border-radius: $border-radius-base;
+    box-shadow: $box-shadow-base;
+    transition: all $transition-time;
+    
+    &:hover {
+      box-shadow: $box-shadow-hover;
+      transform: translateY(-2px);
+    }
+  }
+
+  .stat-icon-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 20px;
+    
+    i {
+      font-size: 20px;
+    }
+  }
+
+  .blue-bg {
+    background-color: #3a7afe;
+  }
+
+  .green-bg {
+    background-color: #36c46e;
+  }
+
+  .orange-bg {
+    background-color: #ff9500;
+  }
+
+  .purple-bg {
+    background-color: #af52de;
+  }
+
+  .card-info {
+    h3 {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 8px;
+      font-weight: normal;
+    }
+    
+    p {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
     }
   }
 
@@ -372,7 +426,7 @@ function hexToRgba(hex, opacity) {
 
   // 卡片公共样式
   .card {
-    background-color: $bg-color;
+    background-color: $card-bg-color;
     border-radius: $border-radius-base;
     box-shadow: $box-shadow-base;
     padding: 20px;
@@ -398,60 +452,101 @@ function hexToRgba(hex, opacity) {
     }
   }
 
+  // 趋势图表容器
+  .visits-trend-card {
+    overflow: hidden;
+  }
+
   // 图表相关样式
   .chart {
     &-period-tabs {
       margin-bottom: 15px;
+      
+      .el-radio-group {
+        display: inline-flex;
+      }
+      
+      .el-radio-button__inner {
+        border: 1px solid #dcdfe6;
+        border-radius: 4px !important;
+        margin-right: 8px;
+        padding: 8px 16px;
+        height: auto;
+        line-height: normal;
+        font-size: 13px;
+        box-shadow: none !important;
+      }
+      
+      .el-radio-button:first-child .el-radio-button__inner,
+      .el-radio-button:last-child .el-radio-button__inner {
+        border-radius: 4px !important;
+      }
+      
+      .el-radio-button.is-active .el-radio-button__inner,
+      .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+        background-color: #3a7afe;
+        border-color: #3a7afe;
+        color: white;
+        box-shadow: none;
+      }
     }
 
+    &-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
     &-legends {
       display: flex;
+      flex-wrap: wrap;
       margin-bottom: 15px;
-      padding-left: 20px;
-    }
-
-    &-legend {
-      display: flex;
-      align-items: center;
-      margin-right: 20px;
-
-      &-color {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        margin-right: 8px;
-      }
-
-      &-text {
-        font-size: 12px;
-        color: $text-secondary;
+      padding: 0 10px;
+      
+      .chart-legend {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        
+        &-color {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          margin-right: 8px;
+          display: inline-block;
+        }
+        
+        &-text {
+          font-size: 12px;
+          color: #666;
+        }
       }
     }
   }
-
-  // 链接样式
-  .view-all {
-    color: $primary-color;
-    font-size: 14px;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
+  
   // 活动列表样式
   .activity-list {
     padding: 0 10px;
     height: 310px;
     overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
   }
-
+  
   // 时间线样式
   .timeline {
     position: relative;
     padding-left: 15px;
-
+    
     &::before {
       content: '';
       position: absolute;
@@ -461,13 +556,13 @@ function hexToRgba(hex, opacity) {
       width: 1px;
       background-color: $border-color-lighter;
     }
-
+    
     &-item {
       position: relative;
       margin-bottom: 20px;
       padding-left: 20px;
     }
-
+    
     &-dot {
       position: absolute;
       left: 0;
@@ -475,132 +570,46 @@ function hexToRgba(hex, opacity) {
       width: 12px;
       height: 12px;
       border-radius: $border-radius-circle;
+      background-color: $primary-color;
       font-size: 0;
       line-height: 0;
-      @include flex-center;
-
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
       i {
         font-size: 6px;
         color: $text-white;
       }
     }
-
+    
     &-content {
       position: relative;
-    }
-
-    &-text {
-      margin: 0 0 5px;
-      font-size: 14px;
-      color: $text-primary;
-    }
-
-    &-time {
-      font-size: 12px;
-      color: $text-secondary;
-    }
-  }
-
-  // 统计卡片样式
-  .stat-card {
-    display: flex;
-    align-items: center;
-    background-color: $bg-color;
-    box-shadow: $box-shadow-light;
-    border-radius: $border-radius-base;
-    padding: 20px;
-
-    .stat-icon-container {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      @include flex-center;
-      margin-right: 20px;
-      color: $text-white;
-      font-size: 28px;
-
-      &.blue-bg {
-        background-color: $primary-color;
-      }
-
-      &.green-bg {
-        background-color: $success-color;
-      }
-
-      &.orange-bg {
-        background-color: $warning-color;
-      }
-
-      &.purple-bg {
-        background-color: $info-color;
-      }
-    }
-
-    .card-info {
-      h3 {
+      
+      h4 {
         font-size: 14px;
-        color: $text-secondary;
-        margin-bottom: 8px;
-        font-weight: normal;
-      }
-
-      p {
-        font-size: 26px;
-        font-weight: 600;
+        font-weight: 500;
+        margin: 0 0 5px 0;
         color: $text-primary;
-        margin: 0;
+      }
+      
+      p {
+        font-size: 13px;
+        color: $text-secondary;
+        margin: 0 0 8px 0;
+      }
+      
+      .time {
+        font-size: 12px;
+        color: $text-placeholder;
       }
     }
   }
 
-  // 自定义Element Plus样式
-  :deep(.el-timeline-item__node) {
-    top: 4px;
-  }
-
-  :deep(.el-timeline-item__content) {
-    font-size: 14px;
-    color: $text-primary;
-  }
-
-  :deep(.el-timeline-item__timestamp) {
-    color: $text-secondary;
-    font-size: 12px;
-    margin-top: 4px;
-  }
-
-  :deep(.el-radio-group) {
-    border-radius: $border-radius-small;
-  }
-
-  :deep(.el-radio-button__inner) {
-    background-color: $hover-bg-color;
-    border-color: $border-color-base;
-    color: $text-secondary;
-    border-radius: $border-radius-small;
-    margin: 0 2px;
-    padding: 5px 15px;
-    font-size: 12px;
-    height: 28px;
-  }
-
-  :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: $text-white;
-    box-shadow: none;
-  }
-
-  :deep(.el-table) {
-    --el-table-border-color: $border-color-base;
-    --el-table-header-bg-color: $hover-bg-color;
-    --el-table-row-hover-bg-color: $hover-bg-color;
-
-    th {
-      font-weight: 600;
-      color: $text-primary;
-      background-color: $hover-bg-color;
-    }
+  // 动画
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 </style>

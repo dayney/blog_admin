@@ -106,18 +106,18 @@ const resetUploader = () => {
 };
 </script>
 
-<style lang="scss">
-@import '@/assets/variables.scss';
+<style lang="scss" scoped>
+@use '@/assets/scss/variables.scss' as *;
 
 .avatar-upload-dialog {
-  border-radius: $border-radius-small;
+  border-radius: $border-radius-mini;
   overflow: hidden;
-  box-shadow: $box-shadow-light;
+  box-shadow: $shadow-sm;
 }
 
 .avatar-dialog-header {
   padding: 15px 20px !important;
-  border-bottom: 1px solid $border-color-lighter !important;
+  border-bottom: 1px solid $border-color-light !important;
   background-color: $bg-color !important;
   margin-right: 0 !important;
 }
@@ -128,7 +128,7 @@ const resetUploader = () => {
 
 .avatar-dialog-footer {
   padding: 15px 20px !important;
-  border-top: 1px solid $border-color-lighter !important;
+  border-top: 1px solid $border-color-light !important;
 }
 
 .dialog-header {

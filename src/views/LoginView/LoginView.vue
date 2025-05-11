@@ -114,8 +114,8 @@ const switchTab = tab => {
 
 <style lang="scss" scoped>
 @use 'sass:math';
-@use '@/assets/variables.scss' as *;
-@use '@/styles/mixins.scss' as *;
+@use '@/assets/scss/variables.scss' as *;
+@use '@/assets/scss/mixins.scss' as *;
 
 .login-view {
   width: 100vw;

@@ -1,0 +1,303 @@
+/**
+ * 全局样式 - 主样式入口文件
+ * 
+ * 本文件作为整个应用的样式主入口点，负责：
+ * 1. 引入所有必要的变量、混合器和基础样式
+ * 2. 定义全局样式规则和通用工具类
+ * 3. 提供Element Plus组件的样式覆盖
+ * 4. 定义通用间距和响应式工具类
+ */
+
+// 首先引入变量和混合器
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+// 引入基础样式
+@use './base.scss' as *;
+
+// Tailwind相关样式
+@forward './layout.scss';
+
+// 全局样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: $bg-color;
+  color: $text-primary;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @include custom-scrollbar();
+}
+
+/* 容器 */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 链接样式 */
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color $transition-time;
+  
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+// Element Plus 组件样式优化
+.el-button {
+  border-radius: $border-radius-base;
+  
+  &--primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    
+    &:hover, 
+    &:focus {
+      background-color: $primary-hover;
+      border-color: $primary-hover;
+    }
+    
+    &:active {
+      background-color: $primary-dark;
+      border-color: $primary-dark;
+    }
+  }
+  
+  &--success {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+  }
+  
+  &--danger {
+    background-color: $danger-color;
+    border-color: $danger-color;
+  }
+  
+  &--warning {
+    background-color: $warning-color;
+    border-color: $warning-color;
+  }
+}
+
+.el-menu {
+  border-right: none;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: $primary-color;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+.el-switch.is-checked .el-switch__core {
+  border-color: $primary-color;
+  background-color: $primary-color;
+}
+
+.el-slider {
+  &__bar {
+    background-color: $primary-color;
+  }
+  
+  &__button {
+    border-color: $primary-color;
+  }
+}
+
+.el-table {
+  background-color: #fafafa;
+  border-radius: $border-radius;
+  overflow: hidden;
+  
+  th {
+    background-color: #fafafa;
+  }
+  
+  &--striped {
+    .el-table__row {
+      &:nth-child(odd) {
+        background-color: $light-color;
+      }
+    }
+  }
+}
+
+.el-tag {
+  border-radius: $border-radius-mini;
+}
+
+.el-card {
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  transition: $transition;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+.el-form {
+  &-item {
+    margin-bottom: $spacing-base;
+  }
+}
+
+.el-dialog {
+  border-radius: $border-radius;
+  overflow: hidden;
+  
+  &__header {
+    padding: $spacing-base $spacing-large;
+    border-bottom: 1px solid $border-color-light;
+  }
+  
+  &__footer {
+    padding: $spacing-base $spacing-large;
+    border-top: 1px solid $border-color-light;
+  }
+}
+
+/* Element Plus 导航样式 */
+.el-tabs {
+  &__header {
+    margin: 0 0 20px;
+    border-bottom: 1px solid $border-color;
+  }
+  
+  &__content {
+    padding: 0;
+  }
+  
+  &__nav {
+    border: none;
+  }
+  
+  &__item {
+    font-size: $font-size-base;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    
+    &.is-active {
+      color: $primary-color;
+    }
+  }
+  
+  &__active-bar {
+    background-color: $primary-color;
+  }
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  
+  &-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  &-track {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+// 通用工具类
+.card {
+  @include ios-card($bg-color: $card-bg-color, $radius: $border-radius, $shadow-value: $shadow, $hover-shadow: $shadow-md, $padding: $spacing-base);
+}
+
+.text-ellipsis {
+  @include text-ellipsis;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+.flex-column {
+  @include flex-column;
+}
+
+// 间距类
+@each $name, $size in (
+  'mini': $spacing-mini,
+  'small': $spacing-small,
+  'base': $spacing-base,
+  'large': $spacing-large,
+  'xl': $spacing-xl,
+  'xxl': $spacing-xxl
+) {
+  .m-#{$name} { margin: $size; }
+  .mt-#{$name} { margin-top: $size; }
+  .mr-#{$name} { margin-right: $size; }
+  .mb-#{$name} { margin-bottom: $size; }
+  .ml-#{$name} { margin-left: $size; }
+  
+  .p-#{$name} { padding: $size; }
+  .pt-#{$name} { padding-top: $size; }
+  .pr-#{$name} { padding-right: $size; }
+  .pb-#{$name} { padding-bottom: $size; }
+  .pl-#{$name} { padding-left: $size; }
+}
+
+// 响应式类
+.hide-on-mobile {
+  @include respond-to('small') {
+    display: none !important;
+  }
+}
+
+.hide-on-desktop {
+  @include respond-to('large') {
+    display: none !important;
+  }
+}
+
+// 动画
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease;
+} 

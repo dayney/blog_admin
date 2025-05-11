@@ -228,7 +228,7 @@ const resetForm = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
 .attachment-settings-container {
   padding-bottom: 40px;

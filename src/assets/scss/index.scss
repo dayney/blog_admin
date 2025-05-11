@@ -1,5 +1,25 @@
-@import './variables.scss';
-@import './mixins.scss';
+/**
+ * 全局样式 - 主样式入口文件
+ * 
+ * 本文件作为整个应用的样式主入口点，负责：
+ * 1. 引入所有必要的变量、混合器和基础样式
+ * 2. 定义全局样式规则和通用工具类
+ * 3. 提供Element Plus组件的样式覆盖
+ * 4. 定义通用间距和响应式工具类
+ */
+
+// 首先引入变量和混合器
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+// 引入通用样式模块
+@use './common.scss' as *;
+
+// 引入基础样式
+@use './base.scss' as *;
+
+// 引入布局样式
+@use './layout.scss';
 
 // 全局样式
 * {
@@ -162,4 +182,4 @@ body {
 
 .slide-up {
   animation: slideUp 0.4s ease;
-}
+} 

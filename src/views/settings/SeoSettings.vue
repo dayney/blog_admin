@@ -480,7 +480,7 @@ const resetForm = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
 .seo-settings {
   padding: 20px;

@@ -1,0 +1,114 @@
+/**
+ * 通用样式模块
+ * 
+ * 本文件包含：
+ * 1. 通用工具类
+ * 2. 常用的flex布局辅助类
+ * 3. 间距和边距工具类
+ */
+
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+
+/* 通用工具类 */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* 显示与隐藏 */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+/* Flex布局辅助类 */
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+/* 常用边距类 */
+.m-0 { margin: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.mr-0 { margin-right: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.ml-0 { margin-left: 0 !important; }
+
+.p-0 { padding: 0 !important; }
+.pt-0 { padding-top: 0 !important; }
+.pr-0 { padding-right: 0 !important; }
+.pb-0 { padding-bottom: 0 !important; }
+.pl-0 { padding-left: 0 !important; }
+
+/* 文本工具类 */
+.text-primary { color: $primary-color !important; }
+.text-secondary { color: $secondary-color !important; }
+.text-success { color: $success-color !important; }
+.text-danger { color: $danger-color !important; }
+.text-warning { color: $warning-color !important; }
+.text-info { color: $info-color !important; }
+.text-light { color: $light-color !important; }
+.text-dark { color: $dark-color !important; }
+
+/* 背景工具类 */
+.bg-primary { background-color: $primary-color !important; }
+.bg-secondary { background-color: $secondary-color !important; }
+.bg-success { background-color: $success-color !important; }
+.bg-danger { background-color: $danger-color !important; }
+.bg-warning { background-color: $warning-color !important; }
+.bg-info { background-color: $info-color !important; }
+.bg-light { background-color: $light-color !important; }
+.bg-dark { background-color: $dark-color !important; }
+
+/* 边框和圆角工具类 */
+.rounded {
+  border-radius: $border-radius !important;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.border {
+  border: 1px solid $border-color !important;
+}
+
+/* 鼠标样式 */
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+/* 位置工具类 */
+.position-relative {
+  position: relative !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.position-fixed {
+  position: fixed !important;
+} 

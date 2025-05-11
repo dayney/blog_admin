@@ -3,42 +3,42 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node -r ./node-sass-deprecation-config.js ./node_modules/.bin/vite",
+    "build": "node -r ./node-sass-deprecation-config.js ./node_modules/.bin/vite build",
     "build:dev": "vite build --mode development",
     "build:test": "vite build --mode test",
     "build:prod": "vite build --mode production",
     "preview": "vite preview",
     "preview:test": "vite preview --mode test",
     "preview:prod": "vite preview --mode production",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "clean": "rimraf node_modules/.vite"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@tailwindcss/postcss": "^4.1.4",
     "axios": "^1.9.0",
     "commitizen": "^4.3.1",
     "cz-git": "^1.11.1",
     "echarts": "^5.6.0",
     "element-plus": "^2.9.8",
-    "eslint-plugin-prettier": "^5.2.6",
-    "pinia": "^2.0.28",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "eslint-plugin-prettier": "^4.2.1",
+    "pinia": "^2.3.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.4",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
+    "@rushstack/eslint-patch": "^1.11.0",
+    "@tailwindcss/postcss": "^4.1.4",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/eslint-config-prettier": "^7.1.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^8.57.1",
-    "eslint-plugin-vue": "^9.3.0",
+    "eslint-plugin-vue": "^9.33.0",
     "postcss": "^8.5.3",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "sass": "^1.87.0",
-    "tailwindcss": "^4.1.4",
-    "vite": "^4.0.0"
+    "vite": "^4.5.13"
   },
   "config": {
     "commitizen": {

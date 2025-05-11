@@ -12,7 +12,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
 .home {
   height: 100vh;

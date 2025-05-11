@@ -9,7 +9,7 @@ import TailwindElementDemo from '@/components/TailwindElementDemo.vue'
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
 .demo {
   width: 100%;

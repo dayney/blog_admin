@@ -1,3 +1,16 @@
+/**
+ * 混合器样式 - 可复用样式函数集合
+ *
+ * 本文件负责:
+ * 1. 定义可在整个应用中重复使用的样式函数
+ * 2. 提供布局、定位、文本处理等通用混合器
+ * 3. 封装响应式设计、特效和组件样式的复杂实现
+ * 4. 减少重复代码，提高样式的可维护性
+ */
+
+@use "sass:color";
+@use "sass:math";
+
 // 布局混合
 @mixin flex-center {
   display: flex;
@@ -94,14 +107,14 @@
 }
 
 // 卡片样式
-@mixin ios-card {
-  background-color: $card-bg-color;
-  border-radius: $border-radius;
-  box-shadow: $shadow;
-  padding: $spacing-base;
+@mixin ios-card($bg-color: #ffffff, $radius: 12px, $shadow-value: 0 4px 16px rgba(0, 0, 0, 0.1), $hover-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), $padding: 16px) {
+  background-color: $bg-color;
+  border-radius: $radius;
+  box-shadow: $shadow-value;
+  padding: $padding;
   
   &:hover {
-    box-shadow: $shadow-md;
+    box-shadow: $hover-shadow;
   }
 }
 
@@ -111,7 +124,7 @@
 }
 
 // 图标按钮
-@mixin icon-button($size: 40px, $color: $primary-color) {
+@mixin icon-button($size: 40px, $color: #42b983, $hover-bg-opacity: 0.1, $transition-duration: 0.3s) {
   width: $size;
   height: $size;
   border-radius: 50%;
@@ -119,10 +132,10 @@
   color: $color;
   @include flex-center;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color $transition-duration, transform $transition-duration;
   
   &:hover {
-    background-color: rgba($color, 0.1);
+    background-color: rgba($color, $hover-bg-opacity);
     transform: translateY(-2px);
   }
 }
@@ -147,10 +160,10 @@
   
   &::-webkit-scrollbar-thumb {
     background-color: $thumb-color;
-    border-radius: $width / 2;
+    border-radius: math.div($width, 2);
     
     &:hover {
-      background-color: darken($thumb-color, 10%);
+      background-color: color.scale($thumb-color, $lightness: -10%);
     }
   }
 } 

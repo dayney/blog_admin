@@ -1,0 +1,32 @@
+// 导入Sass变量和混合器
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Tailwind CSS层
+@layer base, utilities;
+
+@layer base {
+  /* 基础样式 */
+  body {
+    font-family: $font-family;
+    color: $text-primary;
+  }
+}
+
+@layer components {
+  /* 组件样式 */
+  .custom-card {
+    @include ios-card;
+    padding: $spacing-base;
+    margin-bottom: $spacing-large;
+  }
+}
+
+@layer utilities {
+  /* 自定义工具类 */
+  .text-gradient {
+    @include gradient-bg($primary-color, $secondary-color);
+    background-clip: text;
+    color: transparent;
+  }
+} 

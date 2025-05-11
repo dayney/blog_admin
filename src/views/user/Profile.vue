@@ -336,7 +336,7 @@ const toggleMoreInfo = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
 
 .profile-outer-container {
   background-color: $bg-color;

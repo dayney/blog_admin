@@ -349,7 +349,151 @@ const resetForm = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/variables.scss';
+@use '@/assets/scss/variables.scss' as *;
+
+// 系统配置模块样式
+.cache-settings {
+  width: 100%;
+  padding: 0;
+  
+  .page-title {
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 20px 0;
+    color: $dark-color;
+  }
+  
+  .section-title {
+    font-size: $font-size-large;
+    font-weight: $font-weight-semibold;
+    margin: 20px 0;
+    color: $dark-color;
+  }
+}
+
+/* 确保内容区域填满 */
+.content-wrapper {
+  width: 100% !important;
+}
+
+/* 内容管理器样式 */
+.content-manager {
+  width: 100%;
+  padding: 0;
+}
+
+/* 标签页导航样式 */
+.tab-nav {
+  margin-bottom: 1rem;
+}
+
+.tab-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  margin-right: 0.25rem;
+  border-top-left-radius: $border-radius-mini;
+  border-top-right-radius: $border-radius-mini;
+  display: flex;
+  align-items: center;
+  transition: all $transition-time;
+  
+  i {
+    margin-right: 0.5rem;
+  }
+  
+  &.active,
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+  }
+}
+
+/* 卡片样式 */
+.card {
+  background-color: white;
+  border-radius: $border-radius-base;
+  padding: 1.5rem;
+  box-shadow: $box-shadow-light;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  animation: fadeIn 0.5s ease;
+  border: 1px solid $border-color-lighter;
+}
+
+/* 卡片标题 */
+.card-header {
+  margin-bottom: 20px;
+  
+  h3 {
+    font-size: $font-size-large;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 8px 0;
+    color: $dark-color;
+  }
+  
+  p {
+    font-size: $font-size-base;
+    color: $gray-color;
+    margin: 0;
+  }
+}
+
+/* 表单控件样式 */
+.el-form {
+  width: 100%;
+}
+
+.el-form-item {
+  margin-bottom: 1.25rem;
+  
+  &__label {
+    font-weight: $font-weight-medium !important;
+    color: $text-regular !important;
+  }
+}
+
+.el-input, 
+.el-textarea, 
+.el-select, 
+.el-input-number {
+  width: 100% !important;
+}
+
+/* 表单提示文本 */
+.form-tip {
+  font-size: $font-size-mini;
+  color: $text-secondary;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+
+/* 按钮样式 */
+.el-button {
+  border-radius: $border-radius-mini;
+  font-weight: $font-weight-medium;
+  transition: all $transition-time;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  
+  & + .el-button {
+    margin-left: 10px;
+  }
+}
+
+/* 表格样式 */
+.el-table {
+  width: 100% !important;
+  margin-bottom: 1.5rem;
+  border-radius: $border-radius-mini;
+  overflow: hidden;
+}
 
 .cache-settings-container {
   padding-bottom: 40px;
@@ -382,38 +526,100 @@ const resetForm = () => {
   }
 }
 
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  
-  span {
-    font-size: 16px;
-    font-weight: 500;
-    color: $text-primary;
-  }
-}
-
 .header-actions {
   display: flex;
   align-items: center;
-}
-
-.form-tip {
-  font-size: 12px;
-  color: $text-regular;
-  margin-top: 5px;
-  line-height: 1.4;
 }
 
 .form-actions {
   margin-top: 30px;
   display: flex;
   justify-content: center;
+  padding-top: 20px;
+  border-top: 1px solid $border-color-lighter;
   
   .el-button {
     padding: 12px 25px;
     font-size: 14px;
+    border-radius: $border-radius-mini;
+    font-weight: $font-weight-medium;
+    transition: all $transition-time;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+}
+
+.cache-card {
+  height: 100%;
+  animation: fadeIn 0.5s ease;
+  
+  .cache-info {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .cache-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: $border-radius-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+    margin-right: 15px;
+    font-size: 24px;
+  }
+  
+  .cache-content {
+    flex: 1;
+    
+    h3 {
+      font-size: 18px;
+      font-weight: $font-weight-semibold;
+      margin: 0 0 5px 0;
+      color: $text-primary;
+    }
+    
+    p {
+      font-size: 14px;
+      color: $text-secondary;
+      margin: 0 0 10px 0;
+    }
+  }
+  
+  .cache-status, .cache-size {
+    font-size: 14px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    
+    .status-label, .size-label {
+      color: $text-secondary;
+      margin-right: 5px;
+    }
+    
+    .size-value {
+      font-weight: $font-weight-medium;
+      color: $text-primary;
+    }
+  }
+  
+  .cache-actions {
+    display: flex;
+    justify-content: center;
+    
+    .el-button + .el-button {
+      margin-left: 10px;
+    }
   }
 }
 
@@ -448,37 +654,83 @@ const resetForm = () => {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
+  color: $text-secondary;
   margin-top: 5px;
+}
+
+.test-result {
+  margin-top: 15px;
+  padding: 12px 16px;
+  border-radius: $border-radius-mini;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  transition: all $transition-time;
+  display: flex;
+  align-items: center;
+  animation: fadeInUp 0.5s ease;
   
-  .used {
-    color: $text-primary;
+  i {
+    font-size: $font-size-medium;
+    margin-right: 8px;
   }
   
-  .total {
-    color: $text-secondary;
+  &.success {
+    background-color: #f0f9eb;
+    border: 1px solid #e1f3d8;
+    color: $success-color;
+  }
+  
+  &.error {
+    background-color: #fef0f0;
+    border: 1px solid #fde2e2;
+    color: $danger-color;
   }
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-  
-  @media (max-width: 768px) {
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 清除个别宽度限制 */
+.el-select[style*="width"],
+.el-input-number[style*="width"] {
+  width: 100% !important;
+}
+
+/* 响应式调整 - 只针对PC */
+@media screen and (min-width: 992px) {
+  .form-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
   
-  @media (max-width: 576px) {
-    grid-template-columns: 1fr;
+  .el-input-number {
+    max-width: 300px;
   }
 }
 
-:deep(.el-form-item) {
-  margin-bottom: 22px;
-}
-
-:deep(.el-switch) {
-  margin-right: 10px;
+.unit-label {
+  margin-left: 10px;
+  color: $text-secondary;
 }
 </style> 
