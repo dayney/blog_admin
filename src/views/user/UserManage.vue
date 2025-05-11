@@ -57,6 +57,9 @@
       <div class="toolbar">
         <el-button type="primary" @click="openAddDialog">添加用户</el-button>
         <el-button type="danger" :disabled="!multipleSelection.length" @click="handleBatchDelete">批量删除</el-button>
+        <el-button type="info" @click="viewLogs">
+          <el-icon><Document /></el-icon> 查看日志
+        </el-button>
       </div>
       
       <el-table :data="userList" border style="width: 100%" @selection-change="handleSelectionChange">
@@ -158,6 +161,19 @@
 import { ref, reactive, onMounted, computed, watch } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { Document } from '@element-plus/icons-vue';
+import { useRouter } from 'vue-router';
+
+// 路由
+const router = useRouter();
+
+// 查看用户操作日志
+const viewLogs = () => {
+  router.push({
+    path: '/log-record',
+    query: { type: 'user' }
+  });
+};
 
 // 模拟用户数据 - 20条记录
 const mockUsers = [

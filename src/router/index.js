@@ -40,6 +40,26 @@ const router = createRouter({
             activeMenu: 'dashboard'
           }
         },
+        // 内容管理路由
+        {
+          path: 'content',
+          name: 'content-management',
+          component: () => import('../views/ContentManagement/index.vue'),
+          meta: {
+            title: '内容管理',
+            activeMenu: 'content'
+          }
+        },
+        // 媒体管理路由
+        {
+          path: 'media',
+          name: 'media-management',
+          component: () => import('../views/MediaManagement/index.vue'),
+          meta: {
+            title: '媒体管理',
+            activeMenu: 'media'
+          }
+        },
         // 用户相关路由
         {
           path: 'user/profile',
@@ -47,16 +67,6 @@ const router = createRouter({
           component: () => import('../views/user/Profile.vue'),
           meta: {
             title: '个人资料',
-            activeMenu: 'user'
-          }
-        },
-        // 用户日志路由
-        {
-          path: 'user/log-record',
-          name: 'user-log-record',
-          component: () => import('../views/user/LogRecord.vue'),
-          meta: {
-            title: '操作日志',
             activeMenu: 'user'
           }
         },
@@ -133,6 +143,66 @@ const router = createRouter({
           meta: {
             title: '用户管理',
             activeMenu: 'user-manage'
+          }
+        },
+        // SEO优化路由
+        {
+          path: 'seo',
+          name: 'seo-optimization',
+          component: () => import('../views/Dashboard.vue'), // 临时使用仪表盘作为占位符
+          meta: {
+            title: 'SEO优化',
+            activeMenu: 'seo'
+          }
+        },
+        // 微信管理路由
+        {
+          path: 'wechat',
+          name: 'wechat-management',
+          component: () => import('../views/Dashboard.vue'), // 临时使用仪表盘作为占位符
+          meta: {
+            title: '微信管理',
+            activeMenu: 'wechat'
+          }
+        },
+        // 原型设计路由
+        {
+          path: 'prototype',
+          name: 'prototype-design',
+          component: () => import('../views/Dashboard.vue'), // 临时使用仪表盘作为占位符
+          meta: {
+            title: '原型设计',
+            activeMenu: 'prototype'
+          }
+        },
+        // 页面设计路由
+        {
+          path: 'page',
+          name: 'page-design',
+          component: () => import('../views/Dashboard.vue'), // 临时使用仪表盘作为占位符
+          meta: {
+            title: '页面设计',
+            activeMenu: 'page'
+          }
+        },
+        // 系统管理路由
+        {
+          path: 'system',
+          name: 'system-management',
+          component: () => import('../views/Dashboard.vue'), // 临时使用仪表盘作为占位符
+          meta: {
+            title: '系统设置',
+            activeMenu: 'system'
+          }
+        },
+        // 日志记录路由
+        {
+          path: 'log-record',
+          name: 'log-record',
+          component: () => import('../views/LogRecord/index.vue'),
+          meta: {
+            title: '操作日志',
+            activeMenu: 'log-record'
           }
         }
       ]
