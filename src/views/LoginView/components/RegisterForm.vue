@@ -1,16 +1,16 @@
 <template>
   <div class="auth-form-wrapper">
     <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" @submit.prevent="handleRegister" class="register-form">
-      <el-form-item prop="username">
+      <el-form-item label="用户名" prop="username">
         <div class="input-with-icon">
-          <i class="fas fa-user"></i>
+          <el-icon><User /></el-icon>
           <el-input v-model="registerForm.username" placeholder="请设置用户名" class="custom-input" />
         </div>
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item label="密码" prop="password">
         <div class="input-with-icon">
-          <i class="fas fa-lock"></i>
+          <el-icon><Lock /></el-icon>
           <el-input
             v-model="registerForm.password"
             type="password"
@@ -21,9 +21,9 @@
         </div>
       </el-form-item>
 
-      <el-form-item prop="confirmPassword">
+      <el-form-item label="确认密码" prop="confirmPassword">
         <div class="input-with-icon">
-          <i class="fas fa-lock"></i>
+          <el-icon><Lock /></el-icon>
           <el-input
             v-model="registerForm.confirmPassword"
             type="password"
@@ -34,9 +34,9 @@
         </div>
       </el-form-item>
 
-      <el-form-item prop="email">
+      <el-form-item label="邮箱" prop="email">
         <div class="input-with-icon">
-          <i class="fas fa-envelope"></i>
+          <el-icon><Message /></el-icon>
           <el-input
             v-model="registerForm.email"
             type="email"
@@ -46,9 +46,9 @@
         </div>
       </el-form-item>
 
-      <el-form-item prop="phone">
+      <el-form-item label="手机号" prop="phone">
         <div class="input-with-icon">
-          <i class="fas fa-phone"></i>
+          <el-icon><Iphone /></el-icon>
           <el-input
             v-model="registerForm.phone"
             type="text"
@@ -69,7 +69,12 @@
         </el-checkbox>
       </el-form-item>
 
-      <el-button type="primary" native-type="submit" class="btn-submit" :loading="loading">注册</el-button>
+      <el-button type="primary" native-type="submit" class="btn-submit" :loading="loading">
+        <span v-if="loading">
+          <el-icon class="is-loading"><Loading /></el-icon> 注册中...
+        </span>
+        <span v-else>注册</span>
+      </el-button>
     </el-form>
   </div>
 </template>
@@ -82,6 +87,7 @@ import { getImageUrl } from '@/utils/tools';
 import { userRegister } from '@/api/user';
 import CaptchaInput from './CaptchaInput.vue';
 import useCaptcha from '../hooks/useCaptcha';
+import { User, Lock, Message, Iphone, Loading } from '@element-plus/icons-vue';
 
 const router = useRouter();
 

@@ -1,7 +1,7 @@
 <template>
   <div class="captcha-container">
     <div class="input-with-icon">
-      <i class="fas fa-shield-alt"></i>
+      <el-icon><InfoFilled /></el-icon>
       <div class="captcha-wrapper">
         <el-input 
           v-model="inputValue" 
@@ -20,6 +20,7 @@
 <script setup>
 import { ref, watch, defineProps, defineEmits } from 'vue';
 import { getImageUrl } from '@/utils/tools';
+import { InfoFilled } from '@element-plus/icons-vue';
 
 const props = defineProps({
   modelValue: {

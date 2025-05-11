@@ -1,16 +1,16 @@
 <template>
   <div class="auth-form-wrapper">
     <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" @submit.prevent="handleLogin" class="login-form">
-      <el-form-item prop="username">
+      <el-form-item label="用户名" prop="username">
         <div class="input-with-icon">
-          <i class="fas fa-user"></i>
+          <el-icon><User /></el-icon>
           <el-input v-model="loginForm.username" placeholder="请输入用户名" class="custom-input" />
         </div>
       </el-form-item>
 
-      <el-form-item prop="password">
+      <el-form-item label="密码" prop="password">
         <div class="input-with-icon">
-          <i class="fas fa-lock"></i>
+          <el-icon><Lock /></el-icon>
           <el-input
             v-model="loginForm.password"
             type="password"
@@ -34,7 +34,7 @@
 
       <el-button type="primary" native-type="submit" class="btn-submit" :loading="loading">
         <span v-if="loading">
-          <i class="fas fa-spinner fa-spin"></i> 登录中...
+          <el-icon class="is-loading"><Loading /></el-icon> 登录中...
         </span>
         <span v-else>登录</span>
       </el-button>
@@ -48,13 +48,13 @@
       
       <div class="social-login">
         <div class="social-btn qq-bg">
-          <i class="fab fa-qq"></i>
+          <el-icon><ChatDotSquare /></el-icon>
         </div>
         <div class="social-btn weixin-bg">
-          <i class="fab fa-weixin"></i>
+          <el-icon><ChatDotRound /></el-icon>
         </div>
         <div class="social-btn weibo-bg">
-          <i class="fab fa-weibo"></i>
+          <el-icon><Promotion /></el-icon>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
 
 <script setup>
 import { ref, reactive, defineExpose } from 'vue';
-import { User, Lock } from '@element-plus/icons-vue';
+import { User, Lock, Loading, ChatDotSquare, ChatDotRound, Promotion } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 // import { verificationUserInfo } from '@/api/login.js';

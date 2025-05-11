@@ -67,7 +67,7 @@
               @clear="getCategoryList"
             >
               <template #prefix>
-                <i class="fas fa-search"></i>
+                <el-icon><Search /></el-icon>
               </template>
               <template #append>
                 <el-button @click="getCategoryList">搜索</el-button>
@@ -209,6 +209,7 @@
 <script setup>
 import { ref } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
+import { Search } from '@element-plus/icons-vue';
 
 // 当前激活的标签页
 const activeTab = ref('site');

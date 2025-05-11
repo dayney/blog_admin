@@ -8,7 +8,7 @@
           <el-card shadow="hover" class="cache-card">
             <div class="cache-info">
               <div class="cache-icon">
-                <i class="fas fa-database"></i>
+                <el-icon><DataBase /></el-icon>
               </div>
               <div class="cache-content">
                 <h3>数据缓存</h3>
@@ -34,7 +34,7 @@
           <el-card shadow="hover" class="cache-card">
             <div class="cache-info">
               <div class="cache-icon">
-                <i class="fas fa-file-code"></i>
+                <el-icon><Document /></el-icon>
               </div>
               <div class="cache-content">
                 <h3>模板缓存</h3>
@@ -60,7 +60,7 @@
           <el-card shadow="hover" class="cache-card">
             <div class="cache-info">
               <div class="cache-icon">
-                <i class="fas fa-images"></i>
+                <el-icon><Picture /></el-icon>
               </div>
               <div class="cache-content">
                 <h3>图片缓存</h3>
@@ -169,6 +169,7 @@
 <script setup>
 import { ref } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
+import { DataBase, Document, Picture } from '@element-plus/icons-vue';
 
 // 缓存表单数据
 const cacheForm = ref({

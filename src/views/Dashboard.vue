@@ -9,7 +9,7 @@
     <div class="stats-cards">
       <div class="card stat-card" v-for="(stat, index) in statsCards" :key="index">
         <div class="stat-icon-container" :class="stat.bgColor">
-          <i :class="stat.icon"></i>
+          <el-icon><component :is="stat.icon"></component></el-icon>
         </div>
         <div class="card-info">
           <h3>{{ stat.title }}</h3>
@@ -59,7 +59,7 @@
           <div class="timeline">
             <div class="timeline-item" v-for="(activity, index) in recentActivities" :key="index">
               <div class="timeline-dot" :style="{ backgroundColor: activity.color }">
-                <i class="fas fa-circle"></i>
+                <el-icon><CirclePlus /></el-icon>
               </div>
               <div class="timeline-content">
                 <p class="timeline-text">{{ activity.content }}</p>
@@ -90,16 +90,20 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import echarts from '@/utils/echarts';
+import { 
+  User, View, Money, Document, 
+  CirclePlus, Check, Warning, InfoFilled, Setting 
+} from '@element-plus/icons-vue';
 
 const chartTimeRange = ref('month');
 let myChart = null;
 
 // 统计卡片数据
 const statsCards = ref([
-  { title: '用户总数', value: '1,254', icon: 'fas fa-users', bgColor: 'blue-bg' },
-  { title: '内容总数', value: '5,678', icon: 'fas fa-file-lines', bgColor: 'green-bg' },
-  { title: '本月访问', value: '24,853', icon: 'fas fa-eye', bgColor: 'orange-bg' },
-  { title: '本月收入', value: '¥15,245', icon: 'fas fa-money-bill-wave', bgColor: 'purple-bg' }
+  { title: '用户总数', value: '1,254', icon: 'User', bgColor: 'blue-bg' },
+  { title: '内容总数', value: '5,678', icon: 'Document', bgColor: 'green-bg' },
+  { title: '本月访问', value: '24,853', icon: 'View', bgColor: 'orange-bg' },
+  { title: '本月收入', value: '¥15,245', icon: 'Money', bgColor: 'purple-bg' }
 ]);
 
 // 最近活动数据
@@ -298,318 +302,231 @@ function hexToRgba(hex, opacity) {
 }
 </script>
 
-<style lang="scss" scoped>
-@use '@/assets/scss/variables.scss' as *;
+<style scoped lang="scss">
+@use '@/assets/scss/mixins.scss' as *;
 
-// 仪表盘模块样式
-// 主容器样式
 .dashboard {
   padding: 20px;
-  background-color: $bg-color;
-  min-height: calc(100vh - 60px);
-
-  // 标题部分
+  
   .section-header {
-    margin-bottom: 24px;
-    border-bottom: 1px solid $border-color-lighter;
-    padding: 20px 0 12px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+    margin-bottom: 20px;
     h2 {
-      font-size: 24px;
-      font-weight: 600;
-      color: $text-primary;
       margin: 0;
+      color: var(--el-text-color-primary);
+      font-size: 24px;
     }
-
     .subtitle {
+      color: var(--el-text-color-secondary);
       font-size: 14px;
-      color: $text-secondary;
+      margin-top: 5px;
     }
   }
-
-  // 统计卡片区域
+  
   .stats-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-bottom: 24px;
-
-    // 响应式调整
+    margin-bottom: 20px;
+    
     @media (max-width: 1200px) {
       grid-template-columns: repeat(2, 1fr);
     }
-
+    
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
     }
   }
-
-  // 统计卡片样式
+  
   .stat-card {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    padding: 24px;
-    background-color: $card-bg-color;
-    border-radius: $border-radius-base;
-    box-shadow: $box-shadow-base;
-    transition: all $transition-time;
+    padding: 20px;
     
-    &:hover {
-      box-shadow: $box-shadow-hover;
-      transform: translateY(-2px);
-    }
-  }
-
-  .stat-icon-container {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    color: white;
-    font-size: 20px;
-    
-    i {
-      font-size: 20px;
-    }
-  }
-
-  .blue-bg {
-    background-color: #3a7afe;
-  }
-
-  .green-bg {
-    background-color: #36c46e;
-  }
-
-  .orange-bg {
-    background-color: #ff9500;
-  }
-
-  .purple-bg {
-    background-color: #af52de;
-  }
-
-  .card-info {
-    h3 {
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 8px;
-      font-weight: normal;
+    .stat-icon-container {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      
+      .el-icon {
+        font-size: 24px;
+        color: white;
+      }
     }
     
-    p {
-      font-size: 24px;
-      font-weight: 600;
-      color: #333;
+    .card-info {
+      h3 {
+        margin: 0;
+        font-size: 14px;
+        color: var(--el-text-color-secondary);
+        font-weight: 400;
+      }
+      
+      p {
+        margin: 5px 0 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--el-text-color-primary);
+      }
     }
   }
-
-  // 图表和活动信息区域
+  
+  .blue-bg { background-color: #0071e3; }
+  .green-bg { background-color: #34c759; }
+  .orange-bg { background-color: #ff9500; }
+  .purple-bg { background-color: #af52de; }
+  
   .grid-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
-    margin-bottom: 24px;
-
-    // 响应式调整
+    margin-bottom: 20px;
+    
     @media (max-width: 1200px) {
       grid-template-columns: 1fr;
     }
   }
-
-  // 卡片公共样式
+  
   .card {
-    background-color: $card-bg-color;
-    border-radius: $border-radius-base;
-    box-shadow: $box-shadow-base;
-    padding: 20px;
-    transition: all $transition-time;
-
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-
-      h3 {
-        font-size: 18px;
-        font-weight: 600;
-        color: $text-primary;
-        margin: 0;
-      }
-    }
-
-    // 内容卡片样式
-    &.content-card {
-      margin-bottom: 24px;
-    }
+    background: var(--el-bg-color);
+    border-radius: 8px;
+    box-shadow: var(--el-box-shadow-light);
   }
-
-  // 趋势图表容器
-  .visits-trend-card {
-    overflow: hidden;
-  }
-
-  // 图表相关样式
-  .chart {
-    &-period-tabs {
-      margin-bottom: 15px;
-      
-      .el-radio-group {
-        display: inline-flex;
-      }
-      
-      .el-radio-button__inner {
-        border: 1px solid #dcdfe6;
-        border-radius: 4px !important;
-        margin-right: 8px;
-        padding: 8px 16px;
-        height: auto;
-        line-height: normal;
-        font-size: 13px;
-        box-shadow: none !important;
-      }
-      
-      .el-radio-button:first-child .el-radio-button__inner,
-      .el-radio-button:last-child .el-radio-button__inner {
-        border-radius: 4px !important;
-      }
-      
-      .el-radio-button.is-active .el-radio-button__inner,
-      .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-        background-color: #3a7afe;
-        border-color: #3a7afe;
-        color: white;
-        box-shadow: none;
-      }
-    }
-
-    &-container {
-      position: relative;
-      height: 300px;
-      width: 100%;
-      margin-top: 10px;
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+    
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
     }
     
-    &-legends {
+    .view-all {
+      color: var(--el-color-primary);
+      font-size: 14px;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .visits-trend-card {
+    .chart-period-tabs {
+      .el-radio-button {
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+    
+    .chart-container {
+      padding: 15px 20px;
+    }
+    
+    .chart-legends {
       display: flex;
-      flex-wrap: wrap;
       margin-bottom: 15px;
-      padding: 0 10px;
+      flex-wrap: wrap;
       
       .chart-legend {
         display: flex;
         align-items: center;
         margin-right: 20px;
-        margin-bottom: 10px;
         
-        &-color {
-          width: 10px;
-          height: 10px;
+        .chart-legend-color {
+          width: 12px;
+          height: 12px;
           border-radius: 2px;
-          margin-right: 8px;
-          display: inline-block;
+          margin-right: 5px;
         }
         
-        &-text {
+        .chart-legend-text {
           font-size: 12px;
-          color: #666;
+          color: var(--el-text-color-secondary);
         }
       }
     }
   }
   
-  // 活动列表样式
-  .activity-list {
-    padding: 0 10px;
-    height: 310px;
-    overflow-y: auto;
-    
-    &::-webkit-scrollbar {
-      width: 6px;
+  .activity-card {
+    .activity-list {
+      padding: 15px 20px;
     }
     
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 3px;
+    .timeline {
+      position: relative;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 5px;
+        height: 100%;
+        width: 2px;
+        background-color: var(--el-border-color-lighter);
+      }
+      
+      .timeline-item {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 15px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .timeline-dot {
+          position: absolute;
+          left: 0;
+          top: 5px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          .el-icon {
+            font-size: 12px;
+            color: white;
+          }
+        }
+        
+        .timeline-content {
+          .timeline-text {
+            margin: 0;
+            font-size: 14px;
+            color: var(--el-text-color-primary);
+          }
+          
+          .timeline-time {
+            display: block;
+            font-size: 12px;
+            color: var(--el-text-color-secondary);
+            margin-top: 3px;
+          }
+        }
+      }
     }
   }
   
-  // 时间线样式
-  .timeline {
-    position: relative;
-    padding-left: 15px;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background-color: $border-color-lighter;
-    }
-    
-    &-item {
-      position: relative;
-      margin-bottom: 20px;
-      padding-left: 20px;
-    }
-    
-    &-dot {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 12px;
-      height: 12px;
-      border-radius: $border-radius-circle;
-      background-color: $primary-color;
-      font-size: 0;
-      line-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  .content-card {
+    .el-table {
+      --el-table-header-bg-color: var(--el-fill-color-lighter);
       
-      i {
-        font-size: 6px;
-        color: $text-white;
+      .el-table__header th {
+        font-weight: 600;
       }
     }
-    
-    &-content {
-      position: relative;
-      
-      h4 {
-        font-size: 14px;
-        font-weight: 500;
-        margin: 0 0 5px 0;
-        color: $text-primary;
-      }
-      
-      p {
-        font-size: 13px;
-        color: $text-secondary;
-        margin: 0 0 8px 0;
-      }
-      
-      .time {
-        font-size: 12px;
-        color: $text-placeholder;
-      }
-    }
-  }
-
-  // 动画
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
   }
 }
 </style>

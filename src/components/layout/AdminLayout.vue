@@ -12,8 +12,7 @@
       <!-- 折叠/展开按钮 -->
       <div class="collapse-button-container">
         <div class="collapse-button" @click="toggleSidebar">
-          <i class="fas fa-bars" v-if="isCollapsed"></i>
-          <i class="fas fa-indent" v-else></i>
+          <el-icon><Expand v-if="isCollapsed" /><Fold v-else /></el-icon>
         </div>
       </div>
       
@@ -22,7 +21,7 @@
         <div class="search-wrapper">
           <el-input v-model="searchMenu" placeholder="请输入需要检索的菜单名称" clearable>
             <template #prefix>
-              <i class="fas fa-search search-icon"></i>
+              <el-icon><Search /></el-icon>
             </template>
           </el-input>
         </div>
@@ -41,63 +40,63 @@
       >
         <el-menu-item index="/dashboard" class="first-menu-item">
           <div class="icon-container">
-            <i class="fas fa-tachometer-alt menu-icon"></i>
+            <el-icon><Histogram /></el-icon>
           </div>
           <template #title>仪表盘</template>
         </el-menu-item>
         
         <el-menu-item index="/content">
           <div class="icon-container">
-            <i class="fas fa-file-alt menu-icon"></i>
+            <el-icon><Document /></el-icon>
           </div>
           <template #title>内容管理</template>
         </el-menu-item>
         
         <el-menu-item index="/media">
           <div class="icon-container">
-            <i class="fas fa-photo-video menu-icon"></i>
+            <el-icon><PictureFilled /></el-icon>
           </div>
           <template #title>媒体管理</template>
         </el-menu-item>
         
         <el-menu-item index="/user/manage">
           <div class="icon-container">
-            <i class="fas fa-user-friends menu-icon"></i>
+            <el-icon><Users /></el-icon>
           </div>
           <template #title>用户管理</template>
         </el-menu-item>
         
         <el-menu-item index="/wechat">
           <div class="icon-container">
-            <i class="fab fa-weixin menu-icon"></i>
+            <el-icon><ChatDotRound /></el-icon>
           </div>
           <template #title>微信管理</template>
         </el-menu-item>
         
         <el-menu-item index="/seo">
           <div class="icon-container">
-            <i class="fas fa-search menu-icon"></i>
+            <el-icon><Search /></el-icon>
           </div>
           <template #title>SEO优化</template>
         </el-menu-item>
         
         <el-menu-item index="/prototype">
           <div class="icon-container">
-            <i class="fas fa-pencil-ruler menu-icon"></i>
+            <el-icon><Brush /></el-icon>
           </div>
           <template #title>原型设计</template>
         </el-menu-item>
         
         <el-menu-item index="/page">
           <div class="icon-container">
-            <i class="fas fa-desktop menu-icon"></i>
+            <el-icon><Grid /></el-icon>
           </div>
           <template #title>页面设计</template>
         </el-menu-item>
         
         <el-menu-item index="/system">
           <div class="icon-container">
-            <i class="fas fa-cog menu-icon"></i>
+            <el-icon><Setting /></el-icon>
           </div>
           <template #title>系统设置</template>
         </el-menu-item>
@@ -116,7 +115,7 @@
               class="search-input"
             >
               <template #prefix>
-                <i class="fas fa-search"></i>
+                <el-icon><Search /></el-icon>
               </template>
             </el-input>
           </div>
@@ -127,7 +126,7 @@
         <div class="right">
           <div class="notification">
             <el-badge :value="2" class="notification-badge">
-              <i class="fas fa-bell"></i>
+              <el-icon><Bell /></el-icon>
             </el-badge>
           </div>
           <div class="divider"></div>
@@ -140,7 +139,7 @@
                 {{ userInitial }}
               </div>
               <span>{{ userInfo.name }}</span>
-              <i class="fas fa-angle-down"></i>
+              <el-icon><ArrowDown /></el-icon>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
@@ -164,6 +163,13 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { 
+  Menu, Search, Setting, User, 
+  UserFilled, Bell, ArrowDown, 
+  Document, PictureFilled, UserFilled as Users,
+  Fold, Expand, Histogram, Grid,
+  ChatDotRound, Operation, Brush
+} from '@element-plus/icons-vue';
 
 // 侧边栏搜索
 const searchMenu = ref('');

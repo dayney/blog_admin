@@ -20,32 +20,30 @@
               <el-input v-model="basicForm.siteSubtitle" placeholder="请输入网站副标题" />
             </el-form-item>
             
-            <el-form-item label="网站logo">
+            <el-form-item label="网站Logo">
               <el-upload
                 class="avatar-uploader"
-                action="#"
+                :http-request="handleLogoUpload"
                 :show-file-list="false"
-                :before-upload="beforeLogoUpload"
-                :http-request="uploadLogo"
+                accept="image/*"
               >
                 <img v-if="basicForm.siteLogo" :src="basicForm.siteLogo" class="avatar" />
-                <el-icon v-else class="avatar-uploader-icon"><i class="fas fa-plus"></i></el-icon>
+                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
               </el-upload>
-              <div class="upload-tip">推荐尺寸：200px * 60px，支持jpg、png格式</div>
+              <div class="form-item-tip">推荐尺寸: 200x60px</div>
             </el-form-item>
             
-            <el-form-item label="网站图标">
+            <el-form-item label="网站Favicon">
               <el-upload
-                class="avatar-uploader"
-                action="#"
+                class="avatar-uploader small"
+                :http-request="handleFaviconUpload"
                 :show-file-list="false"
-                :before-upload="beforeFaviconUpload"
-                :http-request="uploadFavicon"
+                accept="image/*"
               >
-                <img v-if="basicForm.siteFavicon" :src="basicForm.siteFavicon" class="avatar-small" />
-                <el-icon v-else class="avatar-uploader-icon small"><i class="fas fa-plus"></i></el-icon>
+                <img v-if="basicForm.siteFavicon" :src="basicForm.siteFavicon" class="avatar" />
+                <el-icon v-else class="avatar-uploader-icon small"><Plus /></el-icon>
               </el-upload>
-              <div class="upload-tip">推荐尺寸：32px * 32px，支持ico、png格式</div>
+              <div class="form-item-tip">推荐尺寸: 32x32px</div>
             </el-form-item>
             
             <el-form-item label="网站域名" prop="siteDomain">
@@ -163,8 +161,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import { Plus } from '@element-plus/icons-vue';
 
 // 当前激活的标签页
 const activeTab = ref('basic');

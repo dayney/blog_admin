@@ -1,20 +1,24 @@
 <template>
-  <div class="home">
-    <div class="welcome-section">
-      <h1 class="title">博客管理系统</h1>
-      <p class="subtitle">欢迎使用博客管理系统</p>
+  <div class="home-view">
+    <div class="content">
+      <h1>欢迎使用 <span class="highlight">小兵CMS</span> 管理系统</h1>
+      <p>一个现代化、高效、美观的内容管理系统</p>
       <div class="actions">
-        <router-link to="/dashboard" class="enter-btn"> <i class="fas fa-sign-in-alt"></i> 进入管理系统 </router-link>
-        <router-link to="/login" class="login-btn"> <i class="fas fa-user"></i> 登录系统 </router-link>
+        <router-link to="/dashboard" class="enter-btn"> <el-icon><ArrowRight /></el-icon> 进入管理系统 </router-link>
+        <router-link to="/login" class="login-btn"> <el-icon><User /></el-icon> 登录系统 </router-link>
       </div>
     </div>
   </div>
 </template>
 
+<script setup>
+import { User, ArrowRight } from '@element-plus/icons-vue';
+</script>
+
 <style lang="scss" scoped>
 @use '@/assets/scss/variables.scss' as *;
 
-.home {
+.home-view {
   height: 100vh;
   display: flex;
   align-items: center;
@@ -22,7 +26,7 @@
   background-color: $bg-color;
 }
 
-.welcome-section {
+.content {
   text-align: center;
   padding: 40px;
   background-color: $bg-color;
