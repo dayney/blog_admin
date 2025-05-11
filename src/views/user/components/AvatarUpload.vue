@@ -3,9 +3,6 @@
     v-model="dialogVisible" 
     width="440px"
     class="avatar-upload-dialog"
-    header-class="avatar-dialog-header"
-    body-class="avatar-dialog-body"
-    footer-class="avatar-dialog-footer"
     :close-on-click-modal="false"
     :show-close="true"
     @close="handleClose">
@@ -106,31 +103,44 @@ const resetUploader = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use '@/assets/scss/variables.scss' as *;
 
-.avatar-upload-dialog {
+// 使用具有更高特异性的选择器
+.el-dialog.avatar-upload-dialog {
   border-radius: $border-radius-mini;
   overflow: hidden;
   box-shadow: $shadow-sm;
+  padding: 0;
+
+  .el-dialog__header {
+    padding: 15px 20px;
+    border-bottom: none;
+    background-color: $bg-color;
+    margin-right: 0;
+  }
+   
+  .el-dialog__body {
+    padding: 20px;
+  }
+   
+  .el-dialog__footer {
+    padding: 15px 20px;
+    border-top: none;
+  }
+
+  .el-dialog__headerbtn {
+    top: 16px;
+    right: 0;
+    height: 24px;
+    
+    .el-dialog__close {
+      color: $text-secondary;
+    }
+  }
 }
 
-.avatar-dialog-header {
-  padding: 15px 20px !important;
-  border-bottom: 1px solid $border-color-light !important;
-  background-color: $bg-color !important;
-  margin-right: 0 !important;
-}
-
-.avatar-dialog-body {
-  padding: 20px !important;
-}
-
-.avatar-dialog-footer {
-  padding: 15px 20px !important;
-  border-top: 1px solid $border-color-light !important;
-}
-
+// 组件内部样式
 .dialog-header {
   display: flex;
   align-items: center;
@@ -155,24 +165,16 @@ const resetUploader = () => {
   color: $text-primary;
 }
 
-/* 调整关闭按钮位置和样式 */
-.el-dialog__headerbtn {
-  top: 16px !important;
-  right: 0 !important;
-  height: 24px !important;
-  
-  .el-dialog__close {
-    color: $text-secondary !important;
-  }
-}
-
 .dialog-content {
   padding: 0;
 }
 
 .upload-container {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  min-height: 240px;
 }
 
 .upload-box {
@@ -199,6 +201,7 @@ const resetUploader = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .preview-circle {

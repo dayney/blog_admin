@@ -354,7 +354,7 @@ const toggleMoreInfo = () => {
 
 .profile-page {
   background-color: $card-bg-color;
-  min-height: 100vh;
+  min-height: auto;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
