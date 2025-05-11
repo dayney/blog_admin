@@ -42,7 +42,7 @@
                   <el-dropdown-item @click="showAvatarUpload">
                     <i class="el-icon-picture"></i> 设置个人头像
                   </el-dropdown-item>
-                  <el-dropdown-item>
+                  <el-dropdown-item @click="goToLogRecord">
                     <i class="el-icon-document"></i> 日志
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -254,8 +254,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import AvatarUpload from './components/AvatarUpload.vue';
+
+// 路由实例
+const router = useRouter();
 
 // 用户信息
 const userInfo = ref({
@@ -333,6 +337,11 @@ const showMoreInfo = ref(false);
 const toggleMoreInfo = () => {
   showMoreInfo.value = !showMoreInfo.value;
 };
+
+// 跳转到日志记录页面
+const goToLogRecord = () => {
+  router.push('/user/log-record');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -347,8 +356,7 @@ const toggleMoreInfo = () => {
 .profile-container {
   border-radius: $border-radius-base;
   background-color: $card-bg-color;
-  margin: 0 auto;
-  max-width: 1200px;
+  max-width: 100%;
   box-shadow: $box-shadow-base;
 }
 

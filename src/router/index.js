@@ -50,6 +50,16 @@ const router = createRouter({
             activeMenu: 'user'
           }
         },
+        // 用户日志路由
+        {
+          path: 'user/log-record',
+          name: 'user-log-record',
+          component: () => import('../views/user/LogRecord.vue'),
+          meta: {
+            title: '操作日志',
+            activeMenu: 'user'
+          }
+        },
         // 账号设置路由
         {
           path: 'account-settings',

@@ -9,7 +9,7 @@
     <template #header>
       <div class="dialog-header">
         <div class="header-icon">
-          <i class="el-icon-user"></i>
+          <el-icon><Avatar /></el-icon>
         </div>
         <span class="header-title">上传头像</span>
       </div>
