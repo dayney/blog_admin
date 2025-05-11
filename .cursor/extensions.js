@@ -1,0 +1,16 @@
+[
+  "Vue.volar",
+  "esbenp.prettier-vscode",
+  "dbaeumer.vscode-eslint",
+  "stylelint.vscode-stylelint",
+  "bradlc.vscode-tailwindcss",
+  "streetsidesoftware.code-spell-checker",
+  "EditorConfig.EditorConfig",
+  "formulahendry.auto-close-tag",
+  "formulahendry.auto-rename-tag",
+  "antfu.iconify",
+  "hollowtree.vue-snippets",
+  "mikestead.dotenv",
+  "redhat.vscode-yaml",
+  "yoavbls.pretty-ts-errors"
+] 

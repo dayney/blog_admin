@@ -7,7 +7,7 @@
     },
     {
       "name": "CSS 类名命名",
-      "pattern": "src/**/*.{vue,css}",
+      "pattern": "src/**/*.{vue,css,scss}",
       "message": "使用 kebab-case 命名 CSS 类名"
     },
     {
@@ -77,12 +77,12 @@
     },
     {
       "name": "iOS风格设计规范",
-      "pattern": "src/**/*.{vue,css}",
+      "pattern": "src/**/*.{vue,css,scss}",
       "message": "设计应遵循iOS风格：简洁、轻量、大圆角设计、适当的磨砂效果"
     },
     {
       "name": "颜色方案",
-      "pattern": "src/**/*.{vue,css}",
+      "pattern": "src/**/*.{vue,css,scss}",
       "message": "使用iOS风格的配色方案，浅色背景，适当使用亮色点缀"
     },
     {
@@ -114,11 +114,137 @@
       "name": "图标使用",
       "pattern": "src/**/*.vue",
       "message": "菜单项和功能按钮应配有适当的图标，选择风格统一的图标库"
+    },
+    {
+      "name": "Pinia 状态管理",
+      "pattern": "src/stores/**/*.js",
+      "message": "使用 Pinia 进行状态管理，每个模块创建独立的 store"
+    },
+    {
+      "name": "API 请求",
+      "pattern": "src/api/**/*.js",
+      "message": "API 请求应按模块分组，使用 axios 实例进行封装"
+    },
+    {
+      "name": "代码分号",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "代码语句末尾必须添加分号，符合项目 .prettierrc 配置"
+    },
+    {
+      "name": "使用单引号",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "代码字符串优先使用单引号，符合项目 .prettierrc 配置"
+    },
+    {
+      "name": "缩进规则",
+      "pattern": "src/**/*.{js,vue,scss,css}",
+      "message": "使用2个空格作为缩进，符合项目 .prettierrc 配置"
+    },
+    {
+      "name": "最大行宽",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "每行代码最大宽度为120个字符，符合项目 .prettierrc 配置"
+    },
+    {
+      "name": "文件头注释",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "文件头部应包含作者、日期、文件描述等信息，使用koroFileHeader格式"
+    },
+    {
+      "name": "SCSS 嵌套规则",
+      "pattern": "src/**/*.{vue,scss}",
+      "message": "SCSS 嵌套不应超过3层，避免过度嵌套"
+    },
+    {
+      "name": "环境变量使用",
+      "pattern": "src/**/*.js",
+      "message": "环境变量应从import.meta.env获取，不要硬编码环境相关配置"
+    },
+    {
+      "name": "国际化文本",
+      "pattern": "src/**/*.vue",
+      "message": "界面文本应使用中文，后续可考虑国际化支持"
+    },
+    {
+      "name": "组件注释",
+      "pattern": "src/components/**/*.vue",
+      "message": "组件应有简要注释说明其用途和使用方式"
+    },
+    {
+      "name": "Echarts 配置",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "Echarts 图表应有明确的主题配置，保持风格统一"
+    },
+    {
+      "name": "Axios 请求封装",
+      "pattern": "src/utils/request.js",
+      "message": "Axios 请求应进行统一封装，包含请求拦截器和响应拦截器"
+    },
+    {
+      "name": "工具函数命名",
+      "pattern": "src/utils/**/*.js",
+      "message": "工具函数应使用驼峰命名法，并有清晰的功能描述注释"
+    },
+    {
+      "name": "异步错误处理",
+      "pattern": "src/**/*.{js,vue}",
+      "message": "异步操作应使用 try/catch 或 Promise.catch 进行错误处理"
+    },
+    {
+      "name": "表单验证",
+      "pattern": "src/**/*.vue",
+      "message": "表单应设置合适的验证规则，并在提交前进行验证"
+    },
+    {
+      "name": "路由导航守卫",
+      "pattern": "src/router/index.js",
+      "message": "路由应设置导航守卫进行权限控制和页面跳转逻辑处理"
+    },
+    {
+      "name": "Git 提交规范",
+      "pattern": "**/*.{js,vue,scss,css}",
+      "message": "请按照项目commitlint.config.cjs中的规范提交代码，使用cz命令"
     }
   ],
   "ignores": [
     "node_modules/**",
     "dist/**",
-    "public/**"
+    "dist-ssr/**",
+    "public/**",
+    ".git/**",
+    "build/**",
+    "coverage/**",
+    "*.min.js",
+    "*.min.css",
+    "*.map",
+    "*.md",
+    "*.woff",
+    "*.ttf",
+    "*.svg",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.ico",
+    "*.lock",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    ".vscode/**",
+    ".idea/**",
+    ".DS_Store",
+    "Thumbs.db",
+    "*.log",
+    "npm-debug.log*",
+    "yarn-debug.log*",
+    "yarn-error.log*",
+    "pnpm-debug.log*",
+    "lerna-debug.log*",
+    "Dockerfile",
+    ".dockerignore",
+    ".env*",
+    "LICENSE",
+    ".eslintcache",
+    "cypress/**"
   ]
 } 
